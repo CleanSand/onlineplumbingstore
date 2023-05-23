@@ -1,5 +1,4 @@
 const { Product } = require('../models/index')
-const {Photo} = require('../models/index')
 const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
 const path = require('path')
@@ -23,11 +22,10 @@ class ProductController {
           VendorCode,
           InStock,
           IDManufacturer,
-          MainOrAdditional
         } = req.body
-      const {Path} = req.file
+      const {Image} = req.file
       let fileName = uuid.v4()+ ".jpg"
-      await Path.mv(path.resolve(__dirname, '..', 'static', fileName))
+      Image.mv(path.resolve(__dirname, '..', 'static', fileName))
       const createProduct = await Product.create({
         Name,
         Weight,
@@ -43,9 +41,9 @@ class ProductController {
         VendorCode,
         InStock,
         IDManufacturer,
+        Image: fileName
       })
-      const createPhoto = await Photo.create({Path: fileName, MainOrAdditional})
-      return res.json(createProduct, createPhoto)
+      return res.json(createProduct)
     } catch (e) {
       next(ApiError.badRequest(e.message))
     }

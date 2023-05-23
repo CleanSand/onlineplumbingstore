@@ -47,6 +47,15 @@ module.exports = function(sequelize, DataTypes) {
         model: 'HomeAddress',
         key: 'IDHomeAddress'
       }
+    },
+    IDRole: {
+      type: DataTypes.INTEGER,
+      defaultValue: 2,
+      allowNull: false,
+      references: {
+        model: 'Role',
+        key: 'IDRole'
+      }
     }
   }, {
     sequelize,

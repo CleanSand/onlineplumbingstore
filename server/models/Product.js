@@ -67,6 +67,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'Manufacturer',
         key: 'IDManufacturer'
       }
+    },
+    Image: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
