@@ -2,6 +2,10 @@ const { Product } = require('../models/index')
 const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
 const path = require('path')
+const sequelize = require('../db')
+const {initModels} = require('../models/init-models')
+
+const models = initModels(sequelize)
 
 class ProductController {
   async create (req, res, next) {
@@ -52,7 +56,68 @@ class ProductController {
 
   async getAll (req, res, next) {
     try {
-      const products = await Product.findAll()
+      let {IDCategory, IDSubcategory, limit, page} = req.query
+      page = page || 1
+      limit = limit || 9
+      let offset = page * limit - limit
+      let products;
+      if (!IDCategory && !IDSubcategory) {
+        products = await models.Product.findAll({ limit, offset })
+      }
+      if (IDCategory && !IDSubcategory){
+        products = await models.Product.findAll({
+          limit,
+          offset,
+          include:[{
+            model: models.ProductCategory,
+            association: 'ProductCategories',
+            where: {IDCategory: IDCategory},
+            include:[{
+              model: models.Category,
+              association: 'IDCategory_Category'
+            }]
+          }]
+        })
+      }
+      if (!IDCategory && IDSubcategory){
+        products = await models.Product.findAll({
+          limit,
+          offset,
+          include:[{
+            model: models.ProductSubcategory,
+            association: 'ProductSubcategories',
+            where: {IDSubcategory: IDSubcategory},
+            include:[{
+              model: models.Subcategory,
+              association: 'IDSubcategory_Subcategory'
+            }]
+          }]
+        })
+      }
+      if (IDCategory && IDSubcategory){
+        products = await models.Product.findAll({
+          limit,
+          offset,
+          include:[{
+            model: models.ProductCategory,
+            association: 'ProductCategories',
+            where: {IDCategory: IDCategory},
+            include:[{
+              model: models.Category,
+              association: 'IDCategory_Category'
+            }],
+          },
+            {
+              model: models.ProductSubcategory,
+              association: 'ProductSubcategories',
+              where: {IDSubcategory: IDSubcategory},
+              include:[{
+                model: models.Subcategory,
+                association: 'IDSubcategory_Subcategory'
+              }]
+            }]
+        })
+      }
       return res.json(products)
     } catch (e) {
       next(ApiError.badRequest(e.message))

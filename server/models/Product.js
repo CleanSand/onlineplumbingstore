@@ -69,7 +69,7 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     Image: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: true
     }
   }, {

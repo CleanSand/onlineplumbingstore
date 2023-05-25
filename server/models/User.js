@@ -50,7 +50,6 @@ module.exports = function(sequelize, DataTypes) {
     },
     IDRole: {
       type: DataTypes.INTEGER,
-      defaultValue: 2,
       allowNull: false,
       references: {
         model: 'Role',
