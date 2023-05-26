@@ -18,20 +18,20 @@ module.exports = function(sequelize, DataTypes) {
     },
     FinalPrice: {
       type: DataTypes.DECIMAL(19,4),
-      allowNull: false
+      allowNull: true
     },
     PurchaseDate: {
       type: DataTypes.DATEONLY,
-      allowNull: false,
+      allowNull: true,
       defaultValue: Sequelize.Sequelize.fn('now')
     },
     FinalQuantity: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     Delivery: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: true
     }
   }, {
     sequelize,

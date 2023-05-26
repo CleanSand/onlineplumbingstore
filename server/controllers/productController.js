@@ -27,7 +27,7 @@ class ProductController {
           InStock,
           IDManufacturer,
         } = req.body
-      const {Image} = req.file
+      const {Image} = req.files
       let fileName = uuid.v4()+ ".jpg"
       Image.mv(path.resolve(__dirname, '..', 'static', fileName))
       const createProduct = await Product.create({
@@ -62,10 +62,10 @@ class ProductController {
       let offset = page * limit - limit
       let products;
       if (!IDCategory && !IDSubcategory) {
-        products = await models.Product.findAll({ limit, offset })
+        products = await models.Product.findAndCountAll({ limit, offset })
       }
       if (IDCategory && !IDSubcategory){
-        products = await models.Product.findAll({
+        products = await models.Product.findAndCountAll({
           limit,
           offset,
           include:[{
@@ -80,7 +80,7 @@ class ProductController {
         })
       }
       if (!IDCategory && IDSubcategory){
-        products = await models.Product.findAll({
+        products = await models.Product.findAndCountAll({
           limit,
           offset,
           include:[{
@@ -95,7 +95,7 @@ class ProductController {
         })
       }
       if (IDCategory && IDSubcategory){
-        products = await models.Product.findAll({
+        products = await models.Product.findAndCountAll({
           limit,
           offset,
           include:[{
