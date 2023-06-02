@@ -8,28 +8,28 @@ import Basket from './pages/Basket'
 export const authRoutes = [
   {
     path: ADMIN_ROUTE,
-    Component: Admin
+    Component: <Admin />
   },
   {
     path: BASKET_ROUTE,
-    Component: Basket
+    Component: <Basket />
   },
 ]
 export const publicRoutes = [
   {
     path: SHOP_ROUTE,
-    Component: Shop
+    Component: <Shop />
   },
   {
     path: LOGIN_ROUTE,
-    Component: Auth
+    Component: <Auth />
   },
   {
     path: REGISTRATION_ROUTE,
-    Component: Auth
+    Component: <Auth />
   },
   {
     path: PRODUCT_ROUTE + '/:id',
-    Component: ProductPage
+    Component: <ProductPage />
   }
 ]
