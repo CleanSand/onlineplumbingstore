@@ -20,13 +20,49 @@ export default class ProductStore{
         IDManufacturer: 4,
         Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"}
     ]
+    this._category = [
+      {id: 1, name: 'Залупа'},
+      {id: 2, name: 'Залупа2'},
+      {id: 3, name: 'Залупа3'},
+    ]
+    this._subcategories = [
+      {id: 1, name: 'подЗалупа'},
+      {id: 2, name: 'подЗалупа2'},
+      {id: 3, name: 'подЗалупа3'},
+    ]
+    this._selectedCategory = []
     makeAutoObservable(this)
   }
   setProducts(products){
     this._prosucts = products
   }
 
+  setCategories(categories){
+    this._category = categories
+}
+  setSubCategories(subcategories){
+    this._subcategories = subcategories
+  }
+  setSelectedCategories(categories){
+    this._selectedCategory = categories
+  }
+  setSelectedSubCategories(SubCategories){
+    this._selectedSubCategory = SubCategories
+  }
   get products(){
     return this._prosucts
+  }
+  get categories(){
+    return this._category
+  }
+
+  get subcategories(){
+    return this._subcategories
+  }
+  get SelectedCategories(){
+    return this._selectedCategory
+  }
+  get SelectedSubCategories(){
+    return this._selectedSubCategory
   }
 }

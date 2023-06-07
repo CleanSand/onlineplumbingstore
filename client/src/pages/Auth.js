@@ -7,9 +7,9 @@ const Auth = () => {
   const location = useLocation()
   const isLogin = location.pathname === LOGIN_ROUTE
   return (
-    <Container
+    <div
       className="d-flex justify-content-center align-items-center"
-      style={{height: "100vh"}}
+      style={{height: "100vh", width:"100vw", position:"absolute", left: '0', top: '0'}}
     >
       <Card style={{width: 600}} className="p-5">
         <h2 className="m-auto">{isLogin ? "Авторизация" : "Регистрация"}</h2>
@@ -39,7 +39,7 @@ const Auth = () => {
 
         </Form>
       </Card>
-    </Container>
+    </div>
   );
 };
 

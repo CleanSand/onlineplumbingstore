@@ -1,0 +1,14 @@
+.nav-link_home {
+    z-index: 100;
+    color: #ccc;
+    text-decoration: none;
+    transition: .3s ease color;
+}
+
+.nav-link_home:hover {
+    color: #ffffff;
+}
+
+.page {
+    margin-top: 50px;
+}

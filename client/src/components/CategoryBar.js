@@ -4,14 +4,30 @@ import { Context } from '../index'
 import { ListGroup } from 'react-bootstrap'
 
 const CategoryBar = observer (() => {
-  const {Product} = useContext(Context)
+  const {product} = useContext(Context)
   return (
     <ListGroup>
-      <ListGroup.Item>Cras justo odio</ListGroup.Item>
-      <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-      <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-      <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-      <ListGroup.Item>Vestibulum at eros</ListGroup.Item>
+      {product.categories.map(category =>
+        <ListGroup.Item
+          style={{cursor: 'pointer'}}
+          active={category.id === product.SelectedCategories.id}
+          onClick={() => product.setSelectedCategories(category)}
+          key={category.id}>
+          {category.name}
+          <ListGroup>
+            {product.subcategories.map(subcategory =>
+              <ListGroup.Item
+                style={{cursor: 'pointer'}}
+                active={subcategory.id === product.SelectedSubCategories.id}
+                onClick={() => product.setSelectedSubCategories(subcategory)}
+                key={subcategory.id}>
+                {subcategory.name}
+              </ListGroup.Item>
+            )}
+          </ListGroup>
+        </ListGroup.Item>
+      )}
+
     </ListGroup>
   )
 });
