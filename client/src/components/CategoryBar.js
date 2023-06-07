@@ -1,34 +1,87 @@
-import React, { useContext } from 'react'
+//import React, { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
-import { Context } from '../index'
-import { ListGroup } from 'react-bootstrap'
+import {Col, Container, ListGroup, ListGroupItem, Row} from "react-bootstrap";
+import React from "react";
+//import { Context } from '../index'
 
 const CategoryBar = observer (() => {
-  const {product} = useContext(Context)
+  //const {product} = useContext(Context)
   return (
-    <ListGroup>
-      {product.categories.map(category =>
-        <ListGroup.Item
-          style={{cursor: 'pointer'}}
-          active={category.id === product.SelectedCategories.id}
-          onClick={() => product.setSelectedCategories(category)}
-          key={category.id}>
-          {category.name}
-          <ListGroup>
-            {product.subcategories.map(subcategory =>
-              <ListGroup.Item
-                style={{cursor: 'pointer'}}
-                active={subcategory.id === product.SelectedSubCategories.id}
-                onClick={() => product.setSelectedSubCategories(subcategory)}
-                key={subcategory.id}>
-                {subcategory.name}
-              </ListGroup.Item>
-            )}
-          </ListGroup>
-        </ListGroup.Item>
-      )}
-
-    </ListGroup>
+      <div className={'drop-list_category'}>
+        <Container style={{width: '100%', display: 'flex'}}>
+          <div style={{width: '25%'}}>
+              <ul className="for-ul">
+                  <li id={'1'}><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+                  <li><a href="#">
+                      <strong>Водичка</strong>
+                  </a></li>
+              </ul>
+          </div>
+          <div style={{width: '75%'}}>
+              <div className={'category-list_left'}>
+                  <div>
+                      <h5>Заголовок списка</h5>
+                      <ul>
+                          <li>элемент</li>
+                          <li>элемент</li>
+                          <li>элемент</li>
+                          <li>элемент</li>
+                      </ul>
+                  </div>
+                  <div>
+                      <h5>Заголовок списка</h5>
+                      <ul>
+                          <li>элемент</li>
+                          <li>элемент</li>
+                          <li>элемент</li>
+                          <li>элемент</li>
+                      </ul>
+                  </div>
+              </div>
+          </div>
+        </Container>
+      </div>
   )
 });
 
