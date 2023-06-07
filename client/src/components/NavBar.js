@@ -1,17 +1,29 @@
 import React, { useContext } from 'react'
 import { Context } from '../index'
-import { Button, Container, Nav, Navbar } from 'react-bootstrap'
+import {Button, Container, Nav, Navbar} from 'react-bootstrap'
 import { LOGIN_ROUTE, SHOP_ROUTE } from '../utils/const'
 import { observer } from 'mobx-react-lite'
 import {Link} from "react-router-dom";
+import CategoryBar from "./CategoryBar";
+
+const btnCategory = () => {
+    const dropMenuCategory = document.querySelector('.drop-list_category')
+
+    if (dropMenuCategory.classList.contains('active'))
+        dropMenuCategory.classList.remove('active')
+    else
+        dropMenuCategory.classList.add('active')
+}
 
 export const NavBar = observer(() => {
   const { user } = useContext(Context)
   return (
-    <Navbar bg="dark" variant="dark" >
+    <Navbar className={'navigation'} bg="dark" variant="dark" >
+        <CategoryBar/>
       <Container>
-        <Nav>
+        <Nav className={'d-flex align-items-center'}>
           <Link className={'nav-link_home'} to={SHOP_ROUTE}>Магазин сантехники</Link>
+            <button onClick={btnCategory} className={'btn btn-primary mx-2'}>Категории</button>
         </Nav>
         {user.isAuth ?
           <Nav className="ml-auto">

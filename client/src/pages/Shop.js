@@ -1,21 +1,19 @@
 import React, {Component} from 'react';
-import { Col, Container, Row } from 'react-bootstrap'
-import { Route } from 'react-router-dom'
-import CategoryBar from '../components/CategoryBar'
+import { Container } from 'react-bootstrap'
 
 class Shop extends Component {
     render() {
         return (
-            <Container>
-                <Row>
-                    <Col md={3}>
-                        <CategoryBar />
-                    </Col>
-                    <Col md={9}>
+            <section>
 
-                    </Col>
-                </Row>
-            </Container>
+                <Container className={'page-shop'}>
+                    <div>
+
+                    </div>
+
+                </Container>
+            </section>
+
         );
     }
 }
