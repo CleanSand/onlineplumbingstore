@@ -20,36 +20,35 @@ const ProductPage = () => {
     Image: "../092efa65-56b4-4bbc-b102-bd188210b619.jpg"}
   return (
     <section>
-      <Container className={"d-flex"}>
-        <Col md ={4} >
-          <img  style={{width: "100%", height: "auto"}}  src={product.Image} alt={""}/>
-        </Col>
-        <Col md ={4} style={{width: "80%", padding: "100px"}}>
-          <Row className={"prod-description"}>
-            <h1>{product.Name}</h1>
-            <p>Высота: {product.Weight}</p>
-            <p>Ширина: {product.Height}</p>
-            <p>Длинна: {product.Lenght}</p>
-            <p>Вид: {product.ProductType}</p>
-            <p>Тип инсталяции: {product.TypeOfInstallation}</p>
-            <p>Цвет: {product.Colour}</p>
-            <p>Стиль дизайна: {product.DesignStyle}</p>
-            <p>Основной материал: {product.HousingMaterial}</p>
-
-          </Row>
-        </Col>
-
-      </Container>
       <Container>
-        <Col md ={4}>
-          <Card
-            className={"d-flex flex-column align-items-center justify-content-around"}
-            style={{width: 300, height: 300, fontSize: 32, border: '5px solid lightgray'}}>
-            <h1>От: {product.Price} руб.</h1>
-            <Button variant={"outline-dark"}>Добавить в корзину</Button>
-          </Card>
-        </Col>
+        <div className={"d-flex product-card"}>
+          <div className={'product-img'}>
+            <div className={'image-product_box'} style={{border: '1px #ccc solid'}}>
+              <img src={qwe} alt={''} className={'image-product'}/>
+            </div>
+            <div className={'product-price'}>
+              <h3>{product.Price} Р</h3>
+              <button className={'btn btn-dark'}>Добавить в корзину</button>
+            </div>
+          </div>
+          <div style={{width: "60%", paddingLeft: "50px"}}>
+            <Row className={"prod-description"}>
+              <h1>{product.Name}</h1>
+              <p>Высота: {product.Weight}</p>
+              <p>Ширина: {product.Height}</p>
+              <p>Длинна: {product.Lenght}</p>
+              <p>Вид: {product.ProductType}</p>
+              <p>Тип инсталяции: {product.TypeOfInstallation}</p>
+              <p>Цвет: {product.Colour}</p>
+              <p>Стиль дизайна: {product.DesignStyle}</p>
+              <p>Основной материал: {product.HousingMaterial}</p>
+
+            </Row>
+          </div>
+        </div>
       </Container>
+
+
     </section>
   );
 };
