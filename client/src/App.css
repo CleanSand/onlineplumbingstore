@@ -8,7 +8,6 @@
 .nav-link_home:hover {
     color: #ffffff;
 }
-
 .page {
     margin-top: 50px;
 }
@@ -26,13 +25,20 @@
     margin-top: -20px;
     display: none;
 }
-
+.prod-description p{
+    font-size: 24px;
+    font-weight: 500;
+}
 .active {
     display: block;
 }
 
 .page-shop {
-
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.prod-list{
 }
 
 .for-ul {

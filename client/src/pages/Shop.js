@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
-import { Container } from 'react-bootstrap'
+import { Col, Container } from 'react-bootstrap'
+import ProductList from '../components/ProductList'
 
 class Shop extends Component {
     render() {
         return (
             <section>
-
                 <Container className={'page-shop'}>
-                    <div>
-
-                    </div>
+                    <Col md={9} className={"prod-list"}>
+                      <ProductList/>
+                    </Col>
 
                 </Container>
             </section>
