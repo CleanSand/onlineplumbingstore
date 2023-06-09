@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Container, Form, } from 'react-bootstrap'
+import { Button, Card, Form, } from 'react-bootstrap'
 import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/const'
 import { Link, useLocation} from 'react-router-dom'
 

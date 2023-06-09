@@ -1,10 +1,11 @@
 import React, { useContext } from 'react'
 import { Context } from '../index'
 import {Button, Container, Nav, Navbar} from 'react-bootstrap'
-import { LOGIN_ROUTE, SHOP_ROUTE } from '../utils/const'
+import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/const'
 import { observer } from 'mobx-react-lite'
 import {Link} from "react-router-dom";
 import CategoryBar from "./CategoryBar";
+import {useNavigate} from 'react-router-dom'
 
 const btnCategory = () => {
     const dropMenuCategory = document.querySelector('.drop-list_category')
@@ -17,6 +18,7 @@ const btnCategory = () => {
 
 export const NavBar = observer(() => {
   const { user } = useContext(Context)
+  const navigate = useNavigate()
   return (
     <Navbar className={'navigation'} bg="dark" variant="dark" >
         <CategoryBar/>
@@ -27,8 +29,8 @@ export const NavBar = observer(() => {
         </Nav>
         {user.isAuth ?
           <Nav className="ml-auto">
-            <Button variant={"outline-light"} >Админ панель</Button>
-            <Button variant={"outline-light"} className="mx-2">Войти</Button>
+            <Button variant={"outline-light"} onClick={() => navigate(ADMIN_ROUTE)} >Админ панель</Button>
+            <Button variant={"outline-light"} onClick={() => navigate(LOGIN_ROUTE)} className="mx-2">Выйти</Button>
           </Nav>
           :
           <Nav className="ml-auto">

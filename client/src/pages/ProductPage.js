@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Col, Container, Image, Row } from 'react-bootstrap'
+import {  Container, Row } from 'react-bootstrap'
 import qwe from "../092efa65-56b4-4bbc-b102-bd188210b619.jpg"
 const ProductPage = () => {
   const product = {IDProduct: 13,

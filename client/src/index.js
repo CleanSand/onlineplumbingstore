@@ -1,5 +1,5 @@
 import React, { createContext } from 'react'
-import ReactDOM, { createRoot } from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 import App from "./App";
 import UserStore from './store/UserStore'
 import ProductStore from './store/ProductStore'
