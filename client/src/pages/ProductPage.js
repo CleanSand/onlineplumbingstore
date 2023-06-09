@@ -1,5 +1,5 @@
 import React from 'react'
-import {  Container, Row } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import qwe from "../092efa65-56b4-4bbc-b102-bd188210b619.jpg"
 const ProductPage = () => {
   const product = {IDProduct: 13,
@@ -19,20 +19,19 @@ const ProductPage = () => {
     IDManufacturer: 4,
     Image: "../092efa65-56b4-4bbc-b102-bd188210b619.jpg"}
   return (
-    <section>
-      <Container>
-        <div className={"d-flex product-card"}>
-          <div className={'product-img'}>
-            <div className={'image-product_box'} style={{border: '1px #ccc solid'}}>
-              <img src={qwe} alt={''} className={'image-product'}/>
+      <section>
+        <Container>
+          <div className={"d-flex product-card"}>
+            <div className={'product-img'}>
+              <div className={'image-product_box'}>
+                <img src={qwe} alt={''} className={'image-product'}/>
+              </div>
+              <div className={'product-price'}>
+                <h3>{product.Price} Р</h3>
+                <button className={'btn btn-dark'}>Добавить в корзину</button>
+              </div>
             </div>
-            <div className={'product-price'}>
-              <h3>{product.Price} Р</h3>
-              <button className={'btn btn-dark'}>Добавить в корзину</button>
-            </div>
-          </div>
-          <div style={{width: "60%", paddingLeft: "50px"}}>
-            <Row className={"prod-description"}>
+            <div className={"prod-description"}>
               <h1>{product.Name}</h1>
               <p>Высота: {product.Weight}</p>
               <p>Ширина: {product.Height}</p>
@@ -42,14 +41,10 @@ const ProductPage = () => {
               <p>Цвет: {product.Colour}</p>
               <p>Стиль дизайна: {product.DesignStyle}</p>
               <p>Основной материал: {product.HousingMaterial}</p>
-
-            </Row>
+            </div>
           </div>
-        </div>
-      </Container>
-
-
-    </section>
+        </Container>
+      </section>
   );
 };
 
