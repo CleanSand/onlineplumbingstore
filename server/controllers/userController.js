@@ -14,8 +14,8 @@ const generateJwt = (IDUser, IDRole, Email, PhoneNumber) =>{
 class UserController{
     async registration(req, res, next){
         try{
-            const {LastName, SecondName, FirstName, PhoneNumber, Password, BirthDate, Email, Gender, IDRole} = req.body
-            if (!LastName || !FirstName || !PhoneNumber || !Password || !BirthDate || !Email || !Gender){
+            const {LastName, SecondName, FirstName, PhoneNumber, Password, BirthDate, Email, IDRole} = req.body
+            if (!LastName || !FirstName || !PhoneNumber || !Password || !BirthDate || !Email){
                 return next(ApiError.badRequest('Данные некоректны'))
             }
             const repeatedEmail = await User.findOne({where: {Email}})
@@ -27,7 +27,7 @@ class UserController{
                 return next(ApiError.badRequest('Пользователь с таким номером телефона уже существует'))
             }
             const hashPassword = await bcrypt.hash(Password, 5)
-            const user = await User.create({LastName, SecondName, FirstName, PhoneNumber, Password: hashPassword, BirthDate, Email, Gender, IDRole})
+            const user = await User.create({LastName, SecondName, FirstName, PhoneNumber, Password: hashPassword, BirthDate, Email, IDRole})
             const jwttoken = generateJwt(user.IDUser, user.IDRole, user.Email, user.PhoneNumber)
             return res.json({ jwttoken })
         }catch (e) {

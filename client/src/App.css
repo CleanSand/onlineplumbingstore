@@ -33,7 +33,10 @@
 .active {
     display: block;
 }
-
+.dropdown-modal{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
 .page-shop {
     width: 100%;
     display: flex;
@@ -127,4 +130,7 @@
     width: 60%;
     padding-left: 50px;
     border: 1px solid #ccc;
+}
+.form-control{
+    margin-top: 5px;
 }

@@ -33,9 +33,10 @@ const ProductPage = () => {
             </div>
             <div className={"prod-description"}>
               <h1>{product.Name}</h1>
+              <p>Описание: {product.Description}</p>
               <p>Высота: {product.Weight}</p>
               <p>Ширина: {product.Height}</p>
-              <p>Длинна: {product.Lenght}</p>
+              <p>Длина: {product.Lenght}</p>
               <p>Вид: {product.ProductType}</p>
               <p>Тип инсталяции: {product.TypeOfInstallation}</p>
               <p>Цвет: {product.Colour}</p>

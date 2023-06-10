@@ -36,10 +36,6 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.STRING(30),
       allowNull: true
     },
-    Gender: {
-      type: DataTypes.CHAR(1),
-      allowNull: false
-    },
     IDHomeAddress: {
       type: DataTypes.INTEGER,
       allowNull: true,
