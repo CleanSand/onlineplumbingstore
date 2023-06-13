@@ -56,30 +56,15 @@ class ProductController {
 
   async getAll (req, res, next) {
     try {
-      let {IDCategory, IDSubcategory, limit, page} = req.query
+      let {IDSubcategory, limit, page} = req.query
       page = page || 1
-      limit = limit || 11
+      limit = limit || 12
       let offset = page * limit - limit
       let products;
-      if (!IDCategory && !IDSubcategory) {
+      if (!IDSubcategory) {
         products = await models.Product.findAndCountAll({ limit, offset })
       }
-      if (IDCategory && !IDSubcategory){
-        products = await models.Product.findAndCountAll({
-          limit,
-          offset,
-          include:[{
-            model: models.ProductCategory,
-            association: 'ProductCategories',
-            where: {IDCategory: IDCategory},
-            include:[{
-              model: models.Category,
-              association: 'IDCategory_Category'
-            }]
-          }]
-        })
-      }
-      if (!IDCategory && IDSubcategory){
+      if (IDSubcategory){
         products = await models.Product.findAndCountAll({
           limit,
           offset,
@@ -92,30 +77,6 @@ class ProductController {
               association: 'IDSubcategory_Subcategory'
             }]
           }]
-        })
-      }
-      if (IDCategory && IDSubcategory){
-        products = await models.Product.findAndCountAll({
-          limit,
-          offset,
-          include:[{
-            model: models.ProductCategory,
-            association: 'ProductCategories',
-            where: {IDCategory: IDCategory},
-            include:[{
-              model: models.Category,
-              association: 'IDCategory_Category'
-            }],
-          },
-            {
-              model: models.ProductSubcategory,
-              association: 'ProductSubcategories',
-              where: {IDSubcategory: IDSubcategory},
-              include:[{
-                model: models.Subcategory,
-                association: 'IDSubcategory_Subcategory'
-              }]
-            }]
         })
       }
       return res.json(products)
