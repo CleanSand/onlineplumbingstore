@@ -5,7 +5,6 @@ var _HomeAddress = require("./HomeAddress");
 var _Manufacturer = require("./Manufacturer");
 var _Payment = require("./Payment");
 var _Product = require("./Product");
-var _ProductCategory = require("./ProductCategory");
 var _ProductPayment = require("./ProductPayment");
 var _ProductSubcategory = require("./ProductSubcategory");
 var _Role = require("./Role");
@@ -19,7 +18,6 @@ function initModels(sequelize) {
   var Manufacturer = _Manufacturer(sequelize, DataTypes);
   var Payment = _Payment(sequelize, DataTypes);
   var Product = _Product(sequelize, DataTypes);
-  var ProductCategory = _ProductCategory(sequelize, DataTypes);
   var ProductPayment = _ProductPayment(sequelize, DataTypes);
   var ProductSubcategory = _ProductSubcategory(sequelize, DataTypes);
   var Role = _Role(sequelize, DataTypes);
@@ -28,16 +26,12 @@ function initModels(sequelize) {
 
   CategorySubcategory.belongsTo(Category, { as: "IDCategory_Category", foreignKey: "IDCategory"});
   Category.hasMany(CategorySubcategory, { as: "CategorySubcategories", foreignKey: "IDCategory"});
-  ProductCategory.belongsTo(Category, { as: "IDCategory_Category", foreignKey: "IDCategory"});
-  Category.hasMany(ProductCategory, { as: "ProductCategories", foreignKey: "IDCategory"});
   User.belongsTo(HomeAddress, { as: "IDHomeAddress_HomeAddress", foreignKey: "IDHomeAddress"});
   HomeAddress.hasMany(User, { as: "Users", foreignKey: "IDHomeAddress"});
   Product.belongsTo(Manufacturer, { as: "IDManufacturer_Manufacturer", foreignKey: "IDManufacturer"});
   Manufacturer.hasMany(Product, { as: "Products", foreignKey: "IDManufacturer"});
   ProductPayment.belongsTo(Payment, { as: "IDPayment_Payment", foreignKey: "IDPayment"});
   Payment.hasMany(ProductPayment, { as: "ProductPayments", foreignKey: "IDPayment"});
-  ProductCategory.belongsTo(Product, { as: "IDProduct_Product", foreignKey: "IDProduct"});
-  Product.hasMany(ProductCategory, { as: "ProductCategories", foreignKey: "IDProduct"});
   ProductPayment.belongsTo(Product, { as: "IDProduct_Product", foreignKey: "IDProduct"});
   Product.hasMany(ProductPayment, { as: "ProductPayments", foreignKey: "IDProduct"});
   ProductSubcategory.belongsTo(Product, { as: "IDProduct_Product", foreignKey: "IDProduct"});
@@ -58,7 +52,6 @@ function initModels(sequelize) {
     Manufacturer,
     Payment,
     Product,
-    ProductCategory,
     ProductPayment,
     ProductSubcategory,
     Role,
