@@ -58,7 +58,7 @@ class ProductController {
     try {
       let {IDCategory, IDSubcategory, limit, page} = req.query
       page = page || 1
-      limit = limit || 12
+      limit = limit || 11
       let offset = page * limit - limit
       let products;
       if (!IDCategory && !IDSubcategory) {
