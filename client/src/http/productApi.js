@@ -13,8 +13,9 @@ export const createSubcategory = async (subcategory) => {
   const {data} =  await $authHost.post('api/subcategory', subcategory)
   return data
 }
-export const fetchSubcategory = async () => {
-  const {data} =  await $host.get('api/subcategory')
+export const fetchSubcategory = async (id) => {
+  const base_url = 'api/subcategory'
+  const {data} =  await $host.get(id ? (base_url + '?IDCategory=' + id) : base_url)
   return data
 }
 export const createProduct = async (Product) => {
