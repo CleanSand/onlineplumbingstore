@@ -1,81 +1,33 @@
-//import React, { useContext } from 'react'
 import { observer } from 'mobx-react-lite'
 import {Container} from "react-bootstrap";
-import React from "react";
-//import { Context } from '../index'
-
+import React, { useContext, useEffect } from 'react'
+import { Context } from '../index'
+import { fetchCategory } from '../http/productApi'
 const CategoryBar = observer (() => {
-  //const {product} = useContext(Context)
+    const {product} = useContext(Context)
   return (
       <div className={'drop-list_category'}>
         <Container style={{width: '100%', display: 'flex'}}>
           <div style={{width: '25%'}}>
               <ul className="for-ul">
+                {product.categories.map(category =>
                   <li id={'1'}><a href="#">
-                      <strong>Водичка</strong>
+                    <strong key={category.IDCategory}>{category.Name}</strong>
                   </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
-                  <li><a href="#">
-                      <strong>Водичка</strong>
-                  </a></li>
+                )}
+
               </ul>
           </div>
           <div style={{width: '75%'}}>
               <div className={'category-list_left'}>
                   <div>
                       <h5>Заголовок списка</h5>
-                      <ul>
-                          <li>элемент</li>
-                          <li>элемент</li>
-                          <li>элемент</li>
-                          <li>элемент</li>
-                      </ul>
-                  </div>
-                  <div>
-                      <h5>Заголовок списка</h5>
-                      <ul>
-                          <li>элемент</li>
-                          <li>элемент</li>
-                          <li>элемент</li>
-                          <li>элемент</li>
+                      <ul >
+                        {product.subcategories.map(subcategory =>
+                          <li  id={'1'}><a className="text" href="#">
+                            <strong key={subcategory.IDCategory}>{subcategory.Name}</strong>
+                          </a></li>
+                        )}
                       </ul>
                   </div>
               </div>

@@ -27,7 +27,11 @@ const ProductPage = () => {
                 <img src={qwe} alt={''} className={'image-product'}/>
               </div>
               <div className={'product-price'}>
-                <h3>{product.Price} Р</h3>
+                <div>
+                  <h3>От {product.Price} Руб.</h3>
+                  <h3>В наличии: {product.InStock}</h3>
+                </div>
+
                 <button className={'btn btn-dark'}>Добавить в корзину</button>
               </div>
             </div>

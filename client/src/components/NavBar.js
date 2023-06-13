@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { Context } from '../index'
 import {Button, Container, Nav, Navbar} from 'react-bootstrap'
 import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/const'
@@ -6,6 +6,8 @@ import { observer } from 'mobx-react-lite'
 import {Link} from "react-router-dom";
 import CategoryBar from "./CategoryBar";
 import {useNavigate} from 'react-router-dom'
+import { fetchCategory, fetchProduct, fetchSubcategory } from '../http/productApi'
+import data from 'bootstrap/js/src/dom/data'
 
 const btnCategory = () => {
     const dropMenuCategory = document.querySelector('.drop-list_category')
@@ -17,8 +19,19 @@ const btnCategory = () => {
 }
 
 export const NavBar = observer(() => {
-  const { user } = useContext(Context)
+  const { user, product } = useContext(Context)
   const navigate = useNavigate()
+  const logOut = () =>{
+    user.setUser({})
+    user.setIsAuth(false)
+  }
+
+  useEffect(() =>{
+    fetchCategory().then(data => product.setCategories(data))
+    fetchSubcategory().then(data => product.setSubCategories(data))
+    fetchProduct().then(data => product.setProducts(data.rows))
+  })
+
   return (
     <Navbar className={'navigation'} bg="dark" variant="dark" >
         <CategoryBar/>
@@ -30,11 +43,11 @@ export const NavBar = observer(() => {
         {user.isAuth ?
           <Nav className="ml-auto">
             <Button variant={"outline-light"} onClick={() => navigate(ADMIN_ROUTE)} >Админ панель</Button>
-            <Button variant={"outline-light"} onClick={() => navigate(LOGIN_ROUTE)} className="mx-2">Выйти</Button>
+            <Button variant={"outline-light"} onClick={() => logOut()} className="mx-2">Выйти</Button>
           </Nav>
           :
           <Nav className="ml-auto">
-            <Button variant={"outline-light"} href={LOGIN_ROUTE} onClick={() => user.setIsAuth(true)}>Авторизация</Button>
+            <Button variant={"outline-light"} onClick={() => navigate(LOGIN_ROUTE)}>Авторизация</Button>
           </Nav>
         }
 

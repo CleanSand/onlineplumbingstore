@@ -1,5 +1,6 @@
 var DataTypes = require("sequelize").DataTypes;
 var _Category = require("./Category");
+var _CategorySubcategory = require("./CategorySubcategory");
 var _HomeAddress = require("./HomeAddress");
 var _Manufacturer = require("./Manufacturer");
 var _Payment = require("./Payment");
@@ -13,6 +14,7 @@ var _User = require("./User");
 
 function initModels(sequelize) {
   var Category = _Category(sequelize, DataTypes);
+  var CategorySubcategory = _CategorySubcategory(sequelize, DataTypes);
   var HomeAddress = _HomeAddress(sequelize, DataTypes);
   var Manufacturer = _Manufacturer(sequelize, DataTypes);
   var Payment = _Payment(sequelize, DataTypes);
@@ -24,6 +26,8 @@ function initModels(sequelize) {
   var Subcategory = _Subcategory(sequelize, DataTypes);
   var User = _User(sequelize, DataTypes);
 
+  CategorySubcategory.belongsTo(Category, { as: "IDCategory_Category", foreignKey: "IDCategory"});
+  Category.hasMany(CategorySubcategory, { as: "CategorySubcategories", foreignKey: "IDCategory"});
   ProductCategory.belongsTo(Category, { as: "IDCategory_Category", foreignKey: "IDCategory"});
   Category.hasMany(ProductCategory, { as: "ProductCategories", foreignKey: "IDCategory"});
   User.belongsTo(HomeAddress, { as: "IDHomeAddress_HomeAddress", foreignKey: "IDHomeAddress"});
@@ -40,6 +44,8 @@ function initModels(sequelize) {
   Product.hasMany(ProductSubcategory, { as: "ProductSubcategories", foreignKey: "IDProduct"});
   User.belongsTo(Role, { as: "IDRole_Role", foreignKey: "IDRole"});
   Role.hasMany(User, { as: "Users", foreignKey: "IDRole"});
+  CategorySubcategory.belongsTo(Subcategory, { as: "IDSubcategory_Subcategory", foreignKey: "IDSubcategory"});
+  Subcategory.hasMany(CategorySubcategory, { as: "CategorySubcategories", foreignKey: "IDSubcategory"});
   ProductSubcategory.belongsTo(Subcategory, { as: "IDSubcategory_Subcategory", foreignKey: "IDSubcategory"});
   Subcategory.hasMany(ProductSubcategory, { as: "ProductSubcategories", foreignKey: "IDSubcategory"});
   Payment.belongsTo(User, { as: "IDUser_User", foreignKey: "IDUser"});
@@ -47,6 +53,7 @@ function initModels(sequelize) {
 
   return {
     Category,
+    CategorySubcategory,
     HomeAddress,
     Manufacturer,
     Payment,

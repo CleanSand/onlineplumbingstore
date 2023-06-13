@@ -86,7 +86,18 @@
     background-color: #ccc;    /* цвет бегунка */
     border: 0;  /* отступ вокруг бегунка */
 }
-
+.text{
+    text-decoration: none;
+    transition: .3s ease color;
+    color: black;
+    margin-top: 5px;
+}
+.text-product-item{
+    text-decoration: none;
+    transition: .3s ease color;
+    color: black;
+    margin-left: 5px;
+}
 .category-list_left {
     display: flex;
 }

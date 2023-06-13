@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     LastName: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     SecondName: {
       type: DataTypes.STRING(50),
@@ -18,11 +18,11 @@ module.exports = function(sequelize, DataTypes) {
     },
     FirstName: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     PhoneNumber: {
       type: DataTypes.STRING(11),
-      allowNull: false
+      allowNull: true
     },
     Password: {
       type: DataTypes.STRING(100),
@@ -30,7 +30,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     BirthDate: {
       type: DataTypes.DATEONLY,
-      allowNull: false
+      allowNull: true
     },
     Email: {
       type: DataTypes.STRING(30),
@@ -46,7 +46,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     IDRole: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Role',
         key: 'IDRole'

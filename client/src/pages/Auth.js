@@ -1,11 +1,19 @@
-import React, { useState } from 'react'
-import { Button, Card, Form, } from 'react-bootstrap'
-import { LOGIN_ROUTE, REGISTRATION_ROUTE } from '../utils/const'
-import { Link, useLocation} from 'react-router-dom'
-import { login, registration } from '../http/userApi'
 
-const Auth = () => {
+import { Button, Card, Form, } from 'react-bootstrap'
+import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/const'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { login, registration } from '../http/userApi'
+import { useContext, useState } from 'react'
+import axios from 'axios'
+import { observe } from 'mobx'
+import { observer } from 'mobx-react-lite'
+import { Context } from '../index'
+
+const Auth = observer (() => {
+  const {user} = useContext(Context)
   const location = useLocation()
+  const navigate = useNavigate()
+
   const isLogin = location.pathname === LOGIN_ROUTE
   const [Email, setEmail] = useState('')
   const [Password, setPassword] = useState('')
@@ -15,14 +23,23 @@ const Auth = () => {
   const [BirthDate, setBirthDate] = useState('')
   const [PhoneNumber, setPhoneNumber] = useState('')
 
+
   const click = async () =>{
-    if(isLogin){
-      const response = await login()
-    }else {
-      const response = await registration(Email, Password, LastName, SecondName, FirstName, BirthDate, PhoneNumber )
-      console.log(response)
+    try {
+      let data;
+      if(isLogin){
+        data = await login(PhoneNumber, Password)
+      }else {
+        data = await registration(PhoneNumber, Password, Email, LastName, SecondName, FirstName, BirthDate)
+      }
+      user.setUser(user)
+      user.setIsAuth(true)
+      navigate(SHOP_ROUTE)
+    } catch (e) {
+      alert(e.response.data.message)
     }
   }
+  console.log(isLogin)
   return (
     <div
       className="d-flex justify-content-center align-items-center"
@@ -120,6 +137,6 @@ const Auth = () => {
       </Card>
     </div>
   );
-};
+});
 
 export default Auth

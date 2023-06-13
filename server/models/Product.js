@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false
     },
     Price: {
-      type: DataTypes.DECIMAL(19,4),
+      type: DataTypes.DECIMAL,
       allowNull: false
     },
     ProductType: {

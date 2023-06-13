@@ -5,7 +5,6 @@ import UserStore from './store/UserStore'
 import ProductStore from './store/ProductStore'
 
 export const Context = createContext(null)
-
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
 root.render(

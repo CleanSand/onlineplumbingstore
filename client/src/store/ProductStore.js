@@ -2,223 +2,18 @@ import { makeAutoObservable } from 'mobx'
 
 export default class ProductStore{
   constructor () {
-    this._prosucts = [
-      { IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},{ IDProduct: 13,
-        Name: "13",
-        Weight: "2",
-        Height: "3",
-        Lenght: "4",
-        Description: "5",
-        Price: "6,00 ?",
-        ProductType: "7",
-        TypeOfInstallation: "8",
-        Colour: "9",
-        DesignStyle: "0",
-        HousingMaterial: "12",
-        VendorCode: "12",
-        InStock: 10,
-        IDManufacturer: 4,
-        Image: "092efa65-56b4-4bbc-b102-bd188210b619.jpg"},
-    ]
-    this._category = [
-      {id: 1, name: 'Залупа'},
-      {id: 2, name: 'Залупа2'},
-      {id: 3, name: 'Залупа3'},
-    ]
-    this._subcategories = [
-      {id: 1, name: 'подЗалупа'},
-      {id: 2, name: 'подЗалупа2'},
-      {id: 3, name: 'подЗалупа3'},
-    ]
+    this._products = []
+    this._categories = []
+    this._subcategories = []
     this._selectedCategory = []
     makeAutoObservable(this)
   }
   setProducts(products){
-    this._prosucts = products
+    this._products = products
   }
 
   setCategories(categories){
-    this._category = categories
+    this._categories = categories
 }
   setSubCategories(subcategories){
     this._subcategories = subcategories
@@ -226,14 +21,14 @@ export default class ProductStore{
   setSelectedCategories(categories){
     this._selectedCategory = categories
   }
-  setSelectedSubCategories(SubCategories){
-    this._selectedSubCategory = SubCategories
+  setSelectedSubCategories(subcategories){
+    this._selectedSubCategories = subcategories
   }
   get products(){
-    return this._prosucts
+    return this._products
   }
   get categories(){
-    return this._category
+    return this._categories
   }
 
   get subcategories(){
@@ -243,6 +38,6 @@ export default class ProductStore{
     return this._selectedCategory
   }
   get SelectedSubCategories(){
-    return this._selectedSubCategory
+    return this._selectedSubCategories
   }
 }
