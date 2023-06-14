@@ -9,7 +9,7 @@ const CreateProduct = observer(({ show, onHide }) => {
   const [Description, setDescription] = useState('');
   const [Height, setHeight] = useState('');
   const [Weight, setWeight] = useState('');
-  const [Length, setLength] = useState('');
+  const [Lenght, setLenght] = useState('');
   const [Price, setPrice] = useState(0);
   const [ProductType, setProductType] = useState('');
   const [TypeOfInstallation, setTypeOfInstallation] = useState('');
@@ -34,6 +34,7 @@ const CreateProduct = observer(({ show, onHide }) => {
 
   const addProduct = () => {
     const formData = new FormData();
+
     formData.append('Name', Name);
     formData.append('Price', `${Price}`);
     formData.append('Image', File);
@@ -41,15 +42,20 @@ const CreateProduct = observer(({ show, onHide }) => {
     //formData.append('IDSubcategory', product.SelectedSubCategories.IDSubcategory);
     formData.append('Height', Height);
     formData.append('Weight', Weight);
-    formData.append('Length', Length);
+    formData.append('Lenght', Lenght);
     formData.append('ProductType', ProductType);
     formData.append('TypeOfInstallation', TypeOfInstallation);
+    formData.append('Description', Description);
     formData.append('Colour', Colour);
     formData.append('DesignStyle', DesignStyle);
     formData.append('HousingMaterial', HousingMaterial);
     formData.append('VendorCode', VendorCode);
     formData.append('InStock', InStock);
     formData.append('IDManufacturer', product.SelectedManufacturers.IDManufacturer);
+
+    for (let pair of formData.entries()) {
+      console.log(pair[0]+ ', ' + pair[1]);
+    }
 
     createProduct(formData).then(data => onHide());
   };
@@ -127,8 +133,8 @@ const CreateProduct = observer(({ show, onHide }) => {
             placeholder="Введите вес"
           />
           <Form.Control
-            value={Length}
-            onChange={e => setLength(e.target.value)}
+            value={Lenght}
+            onChange={e => setLenght(e.target.value)}
             className="form-control"
             placeholder="Введите длину"
           />

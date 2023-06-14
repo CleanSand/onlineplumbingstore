@@ -27,7 +27,7 @@ class UserController{
                  return next(ApiError.badRequest('Пользователь с таким номером телефона уже существует'))
             }
             const hashPassword = await bcrypt.hash(Password, 5)
-            const user = await User.create({Email, Password, LastName, SecondName, FirstName, BirthDate, PhoneNumber, IDRole})
+            const user = await User.create({Email, Password: hashPassword, LastName, SecondName, FirstName, BirthDate, PhoneNumber, IDRole})
             const token = generateJwt(user.IDUser, user.IDRole, user.PhoneNumber)
             return res.json({ token })
 
