@@ -9,6 +9,14 @@ export const fetchCategory = async () => {
   const {data} =  await $host.get('api/category')
   return data
 }
+export const createManufacturer = async (manufacturer) => {
+  const {data} =  await $authHost.post('api/manufacturer', manufacturer)
+  return data
+}
+export const fetchManufacturer = async () => {
+  const {data} =  await $host.get('api/manufacturer')
+  return data
+}
 export const createSubcategory = async (subcategory) => {
   const {data} =  await $authHost.post('api/subcategory', subcategory)
   return data

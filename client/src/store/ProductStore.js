@@ -6,12 +6,17 @@ export default class ProductStore{
     this._categories = []
     this._subcategories = []
     this._selectedCategory = []
+    this._selectedSubCategories = []
+    this._selectedManufacturers = []
+    this._manufacturers = []
     makeAutoObservable(this)
+  }
+  setManufacturers(manufacturers){
+    this._manufacturers = manufacturers
   }
   setProducts(products){
     this._products = products
   }
-
   setCategories(categories){
     this._categories = categories
 }
@@ -24,6 +29,13 @@ export default class ProductStore{
   setSelectedSubCategories(subcategories){
     this._selectedSubCategories = subcategories
   }
+  setSelectedManufacturers(manufacturers){
+    this._selectedManufacturers = manufacturers
+  }
+  get manufacturers(){
+    return this._manufacturers
+  }
+
   get products(){
     return this._products
   }
@@ -39,5 +51,8 @@ export default class ProductStore{
   }
   get SelectedSubCategories(){
     return this._selectedSubCategories
+  }
+  get SelectedManufacturers(){
+    return this._selectedManufacturers
   }
 }

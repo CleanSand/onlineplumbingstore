@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Image } from 'react-bootstrap'
-import qwe from "../092efa65-56b4-4bbc-b102-bd188210b619.jpg"
 import {useParams} from 'react-router-dom'
 import { fetchOneProduct } from '../http/productApi'
 const ProductPage = () => {

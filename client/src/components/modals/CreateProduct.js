@@ -1,15 +1,61 @@
-import React, { useContext } from 'react'
-import { Button, Dropdown, Form, Modal } from 'react-bootstrap'
-import { Context } from '../../index'
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Dropdown, Form, Image, Modal } from 'react-bootstrap';
+import { Context } from '../../index';
+import { createProduct, fetchCategory, fetchManufacturer, fetchProduct, fetchSubcategory } from '../../http/productApi';
+import { observer } from 'mobx-react-lite';
 
-const CreateProduct = ({ show, onHide }) => {
-  const {product} = useContext(Context)
+const CreateProduct = observer(({ show, onHide }) => {
+  const [Name, setName] = useState('');
+  const [Description, setDescription] = useState('');
+  const [Height, setHeight] = useState('');
+  const [Weight, setWeight] = useState('');
+  const [Length, setLength] = useState('');
+  const [Price, setPrice] = useState(0);
+  const [ProductType, setProductType] = useState('');
+  const [TypeOfInstallation, setTypeOfInstallation] = useState('');
+  const [Colour, setColour] = useState('');
+  const [DesignStyle, setDesignStyle] = useState('');
+  const [HousingMaterial, setHousingMaterial] = useState('');
+  const [VendorCode, setVendorCode] = useState('');
+  const [InStock, setInStock] = useState('');
+  const [File, setFile] = useState(null);
+  const { product } = useContext(Context);
+
+  const selectFile = e => {
+    setFile(e.target.files[0]);
+  };
+
+  useEffect(() => {
+    fetchCategory().then(data => product.setCategories(data));
+    fetchSubcategory().then(data => product.setSubCategories(data));
+    fetchProduct().then(data => product.setProducts(data.rows));
+    fetchManufacturer().then(data => product.setManufacturers(data));
+  }, []);
+
+  const addProduct = () => {
+    const formData = new FormData();
+    formData.append('Name', Name);
+    formData.append('Price', `${Price}`);
+    formData.append('Image', File);
+    //formData.append('IDCategory', product.SelectedCategories.IDCategory);
+    //formData.append('IDSubcategory', product.SelectedSubCategories.IDSubcategory);
+    formData.append('Height', Height);
+    formData.append('Weight', Weight);
+    formData.append('Length', Length);
+    formData.append('ProductType', ProductType);
+    formData.append('TypeOfInstallation', TypeOfInstallation);
+    formData.append('Colour', Colour);
+    formData.append('DesignStyle', DesignStyle);
+    formData.append('HousingMaterial', HousingMaterial);
+    formData.append('VendorCode', VendorCode);
+    formData.append('InStock', InStock);
+    formData.append('IDManufacturer', product.SelectedManufacturers.IDManufacturer);
+
+    createProduct(formData).then(data => onHide());
+  };
+
   return (
-    <Modal
-      show={show}
-      onHide={onHide}
-      centered
-    >
+    <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Добавить товар
@@ -17,80 +63,138 @@ const CreateProduct = ({ show, onHide }) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Dropdown className={"dropdown-modal"}>
-            <Dropdown.Toggle>Выберите категорию</Dropdown.Toggle>
+          <Dropdown className="dropdown-modal">
+            <Dropdown.Toggle>{product.SelectedCategories.Name || 'Выберите категорию'}</Dropdown.Toggle>
             <Dropdown.Menu>
-              {product.categories.map(category =>
-                <Dropdown.Item key={category.id}>{category.name}</Dropdown.Item>
-              )}
+              {product.categories.map(category => (
+                <Dropdown.Item
+                  onClick={() => product.setSelectedCategories(category)}
+                  key={category.IDCategory}
+                >
+                  {category.Name}
+                </Dropdown.Item>
+              ))}
             </Dropdown.Menu>
           </Dropdown>
-          <Dropdown className={"dropdown-modal"}>
-            <Dropdown.Toggle>Выберите подкатегорию</Dropdown.Toggle>
+          <Dropdown className="dropdown-modal">
+            <Dropdown.Toggle>{product.SelectedSubCategories.Name || 'Выберите подкатегорию'}</Dropdown.Toggle>
             <Dropdown.Menu>
-              {product.subcategories.map(subcategories =>
-                <Dropdown.Item key={subcategories.id}>{subcategories.name}</Dropdown.Item>
-              )}
+              {product.subcategories.map(subcategory => (
+                <Dropdown.Item
+                  onClick={() => product.setSelectedSubCategories(subcategory)}
+                  key={subcategory.IDSubcategory}
+                >
+                  {subcategory.Name}
+                </Dropdown.Item>
+              ))}
+            </Dropdown.Menu>
+          </Dropdown>
+          <Dropdown className="dropdown-modal">
+            <Dropdown.Toggle>{product.SelectedManufacturers.Name || 'Выберите производителя'}</Dropdown.Toggle>
+            <Dropdown.Menu>
+              {product.manufacturers.map(manufacturer => (
+                <Dropdown.Item
+                  onClick={() => product.setSelectedManufacturers(manufacturer)}
+                  key={manufacturer.IDManufacturer}
+                >
+                  {manufacturer.Name}
+                </Dropdown.Item>
+              ))}
             </Dropdown.Menu>
           </Dropdown>
           <Form.Control
-            className={"form-control"}
-            placeholder={"Введите название товара"}
+            value={Name}
+            onChange={e => setName(e.target.value)}
+            className="form-control"
+            placeholder="Введите название товара"
           />
           <Form.Control
-            className={"form-control"}
-            placeholder={"Введите описание товара"}
+            value={Description}
+            onChange={e => setDescription(e.target.value)}
+            className="form-control"
+            placeholder="Введите описание товара"
           />
           <Form.Control
-            className={"form-control"}
-            placeholder={"Введите высоту"}
+            value={Height}
+            onChange={e => setHeight(e.target.value)}
+            className="form-control"
+            placeholder="Введите высоту"
           />
           <Form.Control
-            className={"form-control"}
-            placeholder={"Введите ширину"}
+            value={Weight}
+            onChange={e => setWeight(e.target.value)}
+            className="form-control"
+            placeholder="Введите вес"
           />
           <Form.Control
-            className={"form-control"}
-            placeholder={"Введите длину"}
+            value={Length}
+            onChange={e => setLength(e.target.value)}
+            className="form-control"
+            placeholder="Введите длину"
           />
           <Form.Control
-            className={"form-control"}
-            placeholder={"Введите вид товара"}
-          />
-        <Form.Control
-            className={"form-control"}
-            placeholder={"Введите тип инсталяции"}
-        />
-        <Form.Control
-            className={"form-control"}
-            placeholder={"Введите цвет"}
-          />
-        <Form.Control
-            className={"form-control"}
-            placeholder={"Введите стиль дизайна"}
-          />
-        <Form.Control
-            className={"form-control"}
-            placeholder={"Введите основной материал"}
-          />
-        <Form.Control
-            className={"form-control"}
-            placeholder={"Введите стоимость товара"}
+            value={Price}
+            onChange={e => setPrice(Number(e.target.value))}
+            className="form-control"
+            placeholder="Введите стоимость товара"
             type="number"
           />
-        <Form.Control
-            className={"form-control"}
-            type="file"
+          <Form.Control
+            value={ProductType}
+            onChange={e => setProductType(e.target.value)}
+            className="form-control"
+            placeholder="Введите тип товара"
           />
-          <hr/>
+          <Form.Control
+            value={TypeOfInstallation}
+            onChange={e => setTypeOfInstallation(e.target.value)}
+            className="form-control"
+            placeholder="Введите тип инсталляции"
+          />
+          <Form.Control
+            value={Colour}
+            onChange={e => setColour(e.target.value)}
+            className="form-control"
+            placeholder="Введите цвет"
+          />
+          <Form.Control
+            value={DesignStyle}
+            onChange={e => setDesignStyle(e.target.value)}
+            className="form-control"
+            placeholder="Введите стиль дизайна"
+          />
+          <Form.Control
+            value={HousingMaterial}
+            onChange={e => setHousingMaterial(e.target.value)}
+            className="form-control"
+            placeholder="Введите материал корпуса"
+          />
+          <Form.Control
+            value={VendorCode}
+            onChange={e => setVendorCode(e.target.value)}
+            className="form-control"
+            placeholder="Введите артикул товара"
+          />
+          <Form.Control
+            value={InStock}
+            onChange={e => setInStock(e.target.value)}
+            className="form-control"
+            placeholder="Введите наличие товара"
+          />
+          <Form.Control className="form-control" type="file" onChange={selectFile} />
+          <hr />
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="outline-danger" onClick={onHide}>Закрыть</Button>
-        <Button variant="outline-success" onClick={onHide}>Добавить</Button>
+        <Button variant="outline-danger" onClick={onHide}>
+          Закрыть
+        </Button>
+        <Button variant="outline-success" onClick={addProduct}>
+          Добавить
+        </Button>
       </Modal.Footer>
     </Modal>
-  )
-}
+  );
+});
 
-export default CreateProduct
+export default CreateProduct;

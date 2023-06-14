@@ -4,8 +4,6 @@ import { LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE } from '../utils/const'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { login, registration } from '../http/userApi'
 import { useContext, useState } from 'react'
-import axios from 'axios'
-import { observe } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { Context } from '../index'
 
