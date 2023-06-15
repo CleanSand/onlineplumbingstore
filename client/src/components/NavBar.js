@@ -9,14 +9,7 @@ import {useNavigate} from 'react-router-dom'
 import { fetchCategory, fetchProduct, fetchSubcategory } from '../http/productApi'
 import data from 'bootstrap/js/src/dom/data'
 
-const btnCategory = () => {
-    const dropMenuCategory = document.querySelector('.drop-list_category')
 
-    if (dropMenuCategory.classList.contains('active'))
-        dropMenuCategory.classList.remove('active')
-    else
-        dropMenuCategory.classList.add('active')
-}
 
 export const NavBar = observer(() => {
   const { user, product } = useContext(Context)
@@ -25,7 +18,14 @@ export const NavBar = observer(() => {
     user.setUser({})
     user.setIsAuth(false)
   }
+  const btnCategory = () => {
+    const dropMenuCategory = document.querySelector('.drop-list_category')
 
+    if (dropMenuCategory.classList.contains('active'))
+      dropMenuCategory.classList.remove('active')
+    else
+      dropMenuCategory.classList.add('active')
+  }
   useEffect(() =>{
     fetchCategory().then(data => product.setCategories(data))
     fetchSubcategory().then(data => product.setSubCategories(data))

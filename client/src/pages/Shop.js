@@ -9,8 +9,13 @@ const Shop = observer(() =>{
   const {product} = useContext(Context)
 
   useEffect(() =>{
-    fetchProduct().then(data => product.setProducts(data.rows))
-  })
+    if(product.SelectedSubCategories){
+      fetchProduct(product.SelectedSubCategories.IDSubcategory).then(data => product.setProducts(data.rows))
+    }
+    else{
+      fetchProduct().then(data => product.setProducts(data.rows))
+    }
+  }, [product.SelectedSubCategories])
   return (
     <section>
       <Container className={'page-shop'}>

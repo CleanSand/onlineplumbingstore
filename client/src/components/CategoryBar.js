@@ -22,6 +22,9 @@ const CategoryBar = observer (() => {
                   <ul
                     className="for-ul"
                   >
+                      <li onClick={() => product.setSelectedSubCategories()}><a className="text" href="#">
+                          <span >Все продукты</span>
+                      </a></li>
                       {product.categories.map(category =>
                         <li
                           key={category.IDCategory}
@@ -39,8 +42,9 @@ const CategoryBar = observer (() => {
                       <div>
                           <h5>Заголовок списка</h5>
                           <ul id={'Subcategory'}>
+
                               {subcategories.map(subcategory =>
-                                <li key={subcategory.IDCategory}><a className="text" href="#">
+                                <li onClick={() => product.setSelectedSubCategories(subcategory)} key={subcategory.IDCategory}><a className="text" href="#">
                                     <span >{subcategory.Name}</span>
                                 </a></li>
                               )}
