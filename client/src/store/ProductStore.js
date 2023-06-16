@@ -77,4 +77,7 @@ export default class ProductStore{
   get SelectedManufacturers(){
     return this._selectedManufacturers
   }
+  get SelectedProduct() {
+    return this._selectedProduct
+  }
 }

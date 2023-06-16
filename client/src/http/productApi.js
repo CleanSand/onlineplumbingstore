@@ -36,8 +36,7 @@ export const fetchProduct = async (IDSubCategory) => {
   return data
 }
 export const fetchOneProduct = async (IDProduct) => {
-  const {data} =  await $host.get('api/product/' + IDProduct)
-  return data
+  return await $host.get('api/product/' + IDProduct)
 }
 export  const deleteProduct = async (IDProduct) =>{
   const {data} = await $authHost.delete('api/product/' + IDProduct)

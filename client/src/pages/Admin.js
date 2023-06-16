@@ -9,6 +9,7 @@ import UpdateProduct from '../components/modals/UpdateProduct'
 
 const Admin = observer( () => {
   const {product} = useContext(Context)
+  const [data, setData] = useState({})
 
   useEffect(()=>{
     fetchProduct().then(data => product.setProducts(data.rows))
@@ -19,11 +20,12 @@ const Admin = observer( () => {
     const res = deleteProduct(key)
     console.log(key)
   }
-  const btnchange = (e) =>{
+  async function btnchange (e){
     setUpdateProductVisible(true)
     const key = e.target.dataset.key
-    fetchProduct().then(data => product.setProductsSecond(data.rows))
-
+    const res  =  await fetchOneProduct(key)
+    product.setSelectedProduct(res.data)
+    setData(res.data)
     console.log(product.setSelectedProductSecond.Name)
   }
 
@@ -51,7 +53,7 @@ const Admin = observer( () => {
                   <td>{product.Price}</td>
                   <td className={'d-flex justify-content-between'}>
                       <button className={'btn btn-outline-dark'} onClick={btnchange} data-key={product.IDProduct} key={product.IDProduct} style={{margin: '0 5px'}}>Редактировать</button>
-                      <UpdateProduct show={UpdateProductVisible} onHide={() => setUpdateProductVisible(false)}/>
+                      <UpdateProduct name="dsadas" show={UpdateProductVisible} onHide={() => setUpdateProductVisible(false)}/>
                       <button className={'btn btn-outline-danger'} onClick={btndelete} data-key={product.IDProduct} key={product.IDProduct}>Удалить</button>
                   </td>
               </tr>

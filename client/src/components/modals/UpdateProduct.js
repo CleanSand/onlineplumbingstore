@@ -7,9 +7,9 @@ import { Context } from '../../index'
 const UpdateProduct = observer(({ show, onHide }) => {
   const {product} = useContext(Context)
 
-  const [Name, setName] = useState('');
-  const [Description, setDescription] = useState(product.setSelectedProductSecond.Name);
-  const [Height, setHeight] = useState('');
+  const [Name, setName] = useState(product.SelectedProduct.Name);
+  const [Description, setDescription] = useState(product.SelectedProduct.Name);
+  const [Height, setHeight] = useState(product.SelectedProduct.Height);
   const [Weight, setWeight] = useState('');
   const [Lenght, setLenght] = useState('');
   const [Price, setPrice] = useState();
