@@ -7,7 +7,6 @@ import { fetchProduct } from '../http/productApi'
 
 const Shop = observer(() =>{
   const {product} = useContext(Context)
-
   useEffect(() =>{
     if(product.SelectedSubCategories){
       fetchProduct(product.SelectedSubCategories.IDSubcategory).then(data => product.setProducts(data.rows))

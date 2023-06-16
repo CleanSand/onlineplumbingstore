@@ -9,6 +9,7 @@ const ProductPage = () => {
   useEffect(() =>{
     fetchOneProduct(id).then(data => setProducts(data))
   }, [])
+
   return (
       <section>
         <Container>

@@ -6,6 +6,7 @@ export default class ProductStore{
     this._categories = []
     this._subcategories = []
     this._selectedCategory = []
+    this._selectedProduct = []
     this._selectedSubCategories = []
     this._selectedManufacturers = []
     this._manufacturers = []
@@ -13,6 +14,9 @@ export default class ProductStore{
   }
   setManufacturers(manufacturers){
     this._manufacturers = manufacturers
+  }
+  Clean(){
+    this._selectedSubCategories = []
   }
   setProducts(products){
     this._products = products
@@ -25,6 +29,9 @@ export default class ProductStore{
   }
   setSelectedCategories(categories){
     this._selectedCategory = categories
+  }
+  setSelectedProduct(product){
+    this._selectedProduct = product
   }
   setSelectedSubCategories(subcategories){
     this._selectedSubCategories = subcategories
@@ -48,6 +55,9 @@ export default class ProductStore{
   }
   get SelectedCategories(){
     return this._selectedCategory
+  }
+  get SelectedProduct(){
+    return this._selectedProduct
   }
   get SelectedSubCategories(){
     return this._selectedSubCategories

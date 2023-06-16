@@ -39,3 +39,6 @@ export const fetchOneProduct = async (IDProduct) => {
   const {data} =  await $host.get('api/product/' + IDProduct)
   return data
 }
+export  const deleteProduct = async (IDProduct) =>{
+  const {data} = await $authHost.delete('api/product/' + IDProduct)
+}

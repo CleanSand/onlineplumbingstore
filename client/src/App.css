@@ -15,7 +15,10 @@
 .navigation {
     position: relative;
 }
-
+.table-product{
+    display: flex;
+    justify-content: space-between;
+}
 .drop-list_category {
     position: absolute;
     top: 74px; left: 0;

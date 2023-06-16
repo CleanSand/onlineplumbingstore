@@ -29,20 +29,22 @@ export const NavBar = observer(() => {
   useEffect(() =>{
     fetchCategory().then(data => product.setCategories(data))
     fetchSubcategory().then(data => product.setSubCategories(data))
-    fetchProduct().then(data => product.setProducts(data.rows))
-  })
-
+  }, [])
+  const btn = () => {
+    navigate(ADMIN_ROUTE)
+    product.Clean()
+  }
   return (
     <Navbar className={'navigation'} bg="dark" variant="dark" >
         <CategoryBar/>
       <Container>
         <Nav className={'d-flex align-items-center'}>
-          <Link className={'nav-link_home'} to={SHOP_ROUTE}>Магазин сантехники</Link>
+          <Link onClick={() => product.Clean()} className={'nav-link_home'} to={SHOP_ROUTE}>Магазин сантехники</Link>
             <button onClick={btnCategory} className={'btn btn-primary mx-2'}>Категории</button>
         </Nav>
         {user.isAuth ?
           <Nav className="ml-auto">
-            <Button variant={"outline-light"} onClick={() => navigate(ADMIN_ROUTE)} >Админ панель</Button>
+            <Button variant={"outline-light"} onClick={btn} >Админ панель</Button>
             <Button variant={"outline-light"} onClick={() => logOut()} className="mx-2">Выйти</Button>
           </Nav>
           :

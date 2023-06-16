@@ -10,7 +10,7 @@ const CreateProduct = observer(({ show, onHide }) => {
   const [Height, setHeight] = useState('');
   const [Weight, setWeight] = useState('');
   const [Lenght, setLenght] = useState('');
-  const [Price, setPrice] = useState(0);
+  const [Price, setPrice] = useState();
   const [ProductType, setProductType] = useState('');
   const [TypeOfInstallation, setTypeOfInstallation] = useState('');
   const [Colour, setColour] = useState('');
@@ -27,10 +27,11 @@ const CreateProduct = observer(({ show, onHide }) => {
 
   useEffect(() => {
     fetchCategory().then(data => product.setCategories(data));
-    fetchSubcategory().then(data => product.setSubCategories(data));
-    fetchProduct().then(data => product.setProducts(data.rows));
     fetchManufacturer().then(data => product.setManufacturers(data));
   }, []);
+  useEffect(() => {
+    fetchSubcategory(product.SelectedCategories.IDCategory).then(data => product.setSubCategories(data));
+  }, [product.SelectedCategories]);
 
   const addProduct = () => {
     const formData = new FormData();
@@ -38,8 +39,7 @@ const CreateProduct = observer(({ show, onHide }) => {
     formData.append('Name', Name);
     formData.append('Price', `${Price}`);
     formData.append('Image', File);
-    //formData.append('IDCategory', product.SelectedCategories.IDCategory);
-    //formData.append('IDSubcategory', product.SelectedSubCategories.IDSubcategory);
+    formData.append('IDSubcategory', product.SelectedSubCategories.IDSubcategory);
     formData.append('Height', Height);
     formData.append('Weight', Weight);
     formData.append('Lenght', Lenght);
@@ -59,7 +59,6 @@ const CreateProduct = observer(({ show, onHide }) => {
 
     createProduct(formData).then(data => onHide());
   };
-
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
