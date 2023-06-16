@@ -16,14 +16,11 @@ const Shop = observer(() =>{
     }
   }, [product.SelectedSubCategories])
   return (
-    <section>
-      <Container className={'page-shop'}>
-        <Col md={8} className={"prod-list"}>
+      <section>
+        <Container className={'page-shop'}>
           <ProductList/>
-        </Col>
-
-      </Container>
-    </section>
+        </Container>
+      </section>
   );
 })
 

@@ -30,7 +30,7 @@ const Auth = observer (() => {
       }else {
         data = await registration(PhoneNumber, Password, Email, LastName, SecondName, FirstName, BirthDate)
       }
-      user.setUser(user)
+      user.setUser(data)
       user.setIsAuth(true)
       navigate(SHOP_ROUTE)
     } catch (e) {

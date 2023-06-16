@@ -15,9 +15,13 @@
 .navigation {
     position: relative;
 }
-.table-product{
-    display: flex;
-    justify-content: space-between;
+.table-product {
+    margin: 10px 0;
+}
+.table-line td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
 }
 .drop-list_category {
     position: absolute;
@@ -45,11 +49,12 @@
     display: flex;
     justify-content: center;
 }
-
 .prod-list{
     margin: 0 20px 20px 20px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
 }
-
 .for-ul {
     list-style-type: none;
     height: 500px;
