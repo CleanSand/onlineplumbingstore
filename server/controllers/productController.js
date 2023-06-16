@@ -106,7 +106,7 @@ class ProductController {
     }
 
   }
-  async deleteProduct(req, res, next){
+  async delete(req, res, next){
     try {
       const { IDProduct } = req.params
       const deleteProductSubcategory = await ProductSubcategory.destroy({
@@ -117,6 +117,50 @@ class ProductController {
       })
 
       return res.json(deleteProductSubcategory, deleteProduct)
+    } catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
+  }
+  async update(req,res,next){
+    try{
+      const
+      {
+          IDProduct,
+          Name,
+          Weight,
+          Height,
+          Lenght,
+          Description,
+          Price,
+          ProductType,
+          TypeOfInstallation,
+          Colour,
+          DesignStyle,
+          HousingMaterial,
+          VendorCode,
+          InStock,
+          IDManufacturer,
+      } = req.body
+      const updateProduct = await Product.update({
+          Name,
+          Weight,
+          Height,
+          Lenght,
+          Description,
+          Price,
+          ProductType,
+          TypeOfInstallation,
+          Colour,
+          DesignStyle,
+          HousingMaterial,
+          VendorCode,
+          InStock,
+          IDManufacturer,
+        },
+        {
+          where: { IDProduct }
+        })
+      return res.json(updateProduct)
     } catch (e) {
       next(ApiError.badRequest(e.message))
     }

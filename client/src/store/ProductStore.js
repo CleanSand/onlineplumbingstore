@@ -3,10 +3,12 @@ import { makeAutoObservable } from 'mobx'
 export default class ProductStore{
   constructor () {
     this._products = []
+    this._productsSecond = []
     this._categories = []
     this._subcategories = []
     this._selectedCategory = []
     this._selectedProduct = []
+    this._selectedProductSecond = []
     this._selectedSubCategories = []
     this._selectedManufacturers = []
     this._manufacturers = []
@@ -21,6 +23,9 @@ export default class ProductStore{
   setProducts(products){
     this._products = products
   }
+  setProductsSecond(productsSecond){
+    this._productsSecond = productsSecond
+  }
   setCategories(categories){
     this._categories = categories
 }
@@ -32,6 +37,9 @@ export default class ProductStore{
   }
   setSelectedProduct(product){
     this._selectedProduct = product
+  }
+  setSelectedProductSecond(productSecond){
+    this._selectedProductSecond = productSecond
   }
   setSelectedSubCategories(subcategories){
     this._selectedSubCategories = subcategories
@@ -46,6 +54,10 @@ export default class ProductStore{
   get products(){
     return this._products
   }
+
+  get productsSecond(){
+    return this._productsSecond
+  }
   get categories(){
     return this._categories
   }
@@ -56,8 +68,8 @@ export default class ProductStore{
   get SelectedCategories(){
     return this._selectedCategory
   }
-  get SelectedProduct(){
-    return this._selectedProduct
+  get SelectedProductSecond(){
+    return this._selectedProductSecond
   }
   get SelectedSubCategories(){
     return this._selectedSubCategories

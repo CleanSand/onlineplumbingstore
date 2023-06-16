@@ -3,8 +3,9 @@ import { Button, Container, Dropdown, Row } from 'react-bootstrap'
 import CreateProduct from '../components/modals/CreateProduct'
 import ProductItem from '../components/ProductItem'
 import { Context } from '../index'
-import { deleteProduct, fetchProduct, fetchSubcategory } from '../http/productApi'
+import { deleteProduct, fetchOneProduct, fetchProduct, fetchSubcategory } from '../http/productApi'
 import { observer } from 'mobx-react-lite'
+import UpdateProduct from '../components/modals/UpdateProduct'
 
 const Admin = observer( () => {
   const {product} = useContext(Context)
@@ -18,12 +19,20 @@ const Admin = observer( () => {
     const res = deleteProduct(key)
     console.log(key)
   }
+  const btnchange = (e) =>{
+    setUpdateProductVisible(true)
+    const key = e.target.dataset.key
+    fetchProduct().then(data => product.setProductsSecond(data.rows))
 
-  const [productVisible,setProductVisible] = useState(false)
+    console.log(product.setSelectedProductSecond.Name)
+  }
+
+  const [CreateProductVisible,setCreateProductVisible] = useState(false)
+  const [UpdateProductVisible,setUpdateProductVisible] = useState(false)
   return (
     <Container className={"d-flex flex-column"}>
-      <Button variant={"outline-dark"} className="mt-2" onClick={() => setProductVisible(true)}>Добавить продукт</Button>
-      <CreateProduct show={productVisible} onHide={() => setProductVisible(false)}/>
+      <Button variant={"outline-dark"} className="mt-2" onClick={() => setCreateProductVisible(true)}>Добавить продукт</Button>
+      <CreateProduct show={CreateProductVisible} onHide={() => setCreateProductVisible(false)}/>
       <table className={'table-product'}>
           <tr>
               <th>Наименование</th>
@@ -41,7 +50,8 @@ const Admin = observer( () => {
                   <td>{product.Colour}</td>
                   <td>{product.Price}</td>
                   <td className={'d-flex justify-content-between'}>
-                      <button className={'btn btn-outline-dark'} style={{margin: '0 5px'}}>Редактировать</button>
+                      <button className={'btn btn-outline-dark'} onClick={btnchange} data-key={product.IDProduct} key={product.IDProduct} style={{margin: '0 5px'}}>Редактировать</button>
+                      <UpdateProduct show={UpdateProductVisible} onHide={() => setUpdateProductVisible(false)}/>
                       <button className={'btn btn-outline-danger'} onClick={btndelete} data-key={product.IDProduct} key={product.IDProduct}>Удалить</button>
                   </td>
               </tr>

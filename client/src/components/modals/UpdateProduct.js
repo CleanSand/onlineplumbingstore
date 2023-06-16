@@ -1,12 +1,14 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Button, Dropdown, Form, Image, Modal } from 'react-bootstrap';
-import { Context } from '../../index';
-import { createProduct, fetchCategory, fetchManufacturer, fetchProduct, fetchSubcategory } from '../../http/productApi';
-import { observer } from 'mobx-react-lite';
+import React, { useContext, useEffect, useState } from 'react'
+import { observer } from 'mobx-react-lite'
+import { Button, Dropdown, Form, Modal } from 'react-bootstrap'
+import { fetchCategory, fetchManufacturer, fetchSubcategory } from '../../http/productApi'
+import { Context } from '../../index'
 
-const CreateProduct = observer(({ show, onHide }) => {
+const UpdateProduct = observer(({ show, onHide }) => {
+  const {product} = useContext(Context)
+
   const [Name, setName] = useState('');
-  const [Description, setDescription] = useState('');
+  const [Description, setDescription] = useState(product.setSelectedProductSecond.Name);
   const [Height, setHeight] = useState('');
   const [Weight, setWeight] = useState('');
   const [Lenght, setLenght] = useState('');
@@ -18,52 +20,12 @@ const CreateProduct = observer(({ show, onHide }) => {
   const [HousingMaterial, setHousingMaterial] = useState('');
   const [VendorCode, setVendorCode] = useState('');
   const [InStock, setInStock] = useState('');
-  const [File, setFile] = useState(null);
-  const { product } = useContext(Context);
 
-  const selectFile = e => {
-    setFile(e.target.files[0]);
-  };
-
-  useEffect(() => {
-    fetchCategory().then(data => product.setCategories(data));
-    fetchManufacturer().then(data => product.setManufacturers(data));
-  }, []);
-  useEffect(() => {
-    fetchSubcategory(product.SelectedCategories.IDCategory).then(data => product.setSubCategories(data));
-  }, [product.SelectedCategories]);
-
-  const addProduct = () => {
-    const formData = new FormData();
-
-    formData.append('Name', Name);
-    formData.append('Price', `${Price}`);
-    formData.append('Image', File);
-    formData.append('IDSubcategory', product.SelectedSubCategories.IDSubcategory);
-    formData.append('Height', Height);
-    formData.append('Weight', Weight);
-    formData.append('Lenght', Lenght);
-    formData.append('ProductType', ProductType);
-    formData.append('TypeOfInstallation', TypeOfInstallation);
-    formData.append('Description', Description);
-    formData.append('Colour', Colour);
-    formData.append('DesignStyle', DesignStyle);
-    formData.append('HousingMaterial', HousingMaterial);
-    formData.append('VendorCode', VendorCode);
-    formData.append('InStock', InStock);
-    formData.append('IDManufacturer', product.SelectedManufacturers.IDManufacturer);
-
-    for (let pair of formData.entries()) {
-      console.log(pair[0]+ ', ' + pair[1]);
-    }
-
-    createProduct(formData).then(data => onHide());
-  };
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Добавить товар
+          Изменить товар
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -184,9 +146,8 @@ const CreateProduct = observer(({ show, onHide }) => {
             value={InStock}
             onChange={e => setInStock(e.target.value)}
             className="form-control"
-            placeholder="Введите количество товара в наличие товара"
+            placeholder="Введите наличие товара"
           />
-          <Form.Control className="form-control" type="file" onChange={selectFile} />
           <hr />
         </Form>
       </Modal.Body>
@@ -194,12 +155,12 @@ const CreateProduct = observer(({ show, onHide }) => {
         <Button variant="outline-danger" onClick={onHide}>
           Закрыть
         </Button>
-        <Button variant="outline-success" onClick={addProduct}>
+        <Button variant="outline-success">
           Добавить
         </Button>
       </Modal.Footer>
     </Modal>
-  );
-});
+  )
+})
 
-export default CreateProduct;
+export default UpdateProduct

@@ -41,4 +41,9 @@ export const fetchOneProduct = async (IDProduct) => {
 }
 export  const deleteProduct = async (IDProduct) =>{
   const {data} = await $authHost.delete('api/product/' + IDProduct)
+  return data
+}
+export  const updateProduct = async (IDProduct) =>{
+  const {data} = await $authHost.patch('api/product/' + IDProduct)
+  return data
 }
