@@ -21,12 +21,12 @@ const Admin = observer( () => {
     console.log(key)
   }
   async function btnchange (e){
-    setUpdateProductVisible(true)
     const key = e.target.dataset.key
     const res  =  await fetchOneProduct(key)
     product.setSelectedProduct(res.data)
     setData(res.data)
-    console.log(product.setSelectedProductSecond.Name)
+    console.log(product.SelectedProduct.Name)
+    setUpdateProductVisible(true)
   }
 
   const [CreateProductVisible,setCreateProductVisible] = useState(false)
@@ -53,7 +53,7 @@ const Admin = observer( () => {
                   <td>{product.Price}</td>
                   <td className={'d-flex justify-content-between'}>
                       <button className={'btn btn-outline-dark'} onClick={btnchange} data-key={product.IDProduct} key={product.IDProduct} style={{margin: '0 5px'}}>Редактировать</button>
-                      <UpdateProduct name="dsadas" show={UpdateProductVisible} onHide={() => setUpdateProductVisible(false)}/>
+                      <UpdateProduct show={UpdateProductVisible} onHide={() => setUpdateProductVisible(false)}/>
                       <button className={'btn btn-outline-danger'} onClick={btndelete} data-key={product.IDProduct} key={product.IDProduct}>Удалить</button>
                   </td>
               </tr>
