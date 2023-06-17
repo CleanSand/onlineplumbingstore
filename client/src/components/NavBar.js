@@ -15,8 +15,7 @@ export const NavBar = observer(() => {
   const { user, product } = useContext(Context)
   const navigate = useNavigate()
   const logOut = () =>{
-    user.setUser({})
-    user.setIsAuth(false)
+    user.onLogout()
   }
   const btnCategory = () => {
     const dropMenuCategory = document.querySelector('.drop-list_category')
@@ -29,13 +28,14 @@ export const NavBar = observer(() => {
   useEffect(() =>{
     fetchCategory().then(data => product.setCategories(data))
     fetchSubcategory().then(data => product.setSubCategories(data))
+    console.log(user.user.IDRole)
   }, [])
   const btn = () => {
     navigate(ADMIN_ROUTE)
     product.Clean()
   }
   return (
-    <Navbar className={'navigation'} bg="dark" variant="dark" >
+    <Navbar className={'navigation py-3'} bg="dark" variant="dark" >
         <CategoryBar/>
       <Container>
         <Nav className={'d-flex align-items-center'}>
@@ -45,7 +45,7 @@ export const NavBar = observer(() => {
         {user.isAuth ?
           <Nav className="ml-auto">
             {user.user.IDRole === 1 && <Button variant={"outline-light"} className="mx-2" onClick={btn}>Админ панель</Button>}
-            <Dropdown className="dropdown-modal">
+            <Dropdown>
               <Dropdown.Toggle>Настройки</Dropdown.Toggle>
               <Dropdown.Menu>
                 <Button variant={"outline-dark"} onClick={() => navigate(PROFILE_ROUTE)}  className="mx-2">Профиль</Button>

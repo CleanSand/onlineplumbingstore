@@ -8,7 +8,7 @@ const ProductList = observer( () => {
   const {product} = useContext(Context)
   return (
       <div className="prod-list" >
-          {product.products.map( product =>
+          {product.products.map(product =>
               <ProductItem key={product.id} product={product}/>
           )}
       </div>
