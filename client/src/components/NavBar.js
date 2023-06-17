@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { Context } from '../index'
-import {Button, Container, Nav, Navbar} from 'react-bootstrap'
-import { ADMIN_ROUTE, LOGIN_ROUTE, SHOP_ROUTE } from '../utils/const'
+import { Button, Container, Dropdown, Nav, Navbar } from 'react-bootstrap'
+import { ADMIN_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE } from '../utils/const'
 import { observer } from 'mobx-react-lite'
 import {Link} from "react-router-dom";
 import CategoryBar from "./CategoryBar";
@@ -44,11 +44,18 @@ export const NavBar = observer(() => {
         </Nav>
         {user.isAuth ?
           <Nav className="ml-auto">
-            <Button variant={"outline-light"} onClick={btn} >Админ панель</Button>
-            <Button variant={"outline-light"} onClick={() => logOut()} className="mx-2">Выйти</Button>
+            {user.user.IDRole === 1 && <Button variant={"outline-light"} className="mx-2" onClick={btn}>Админ панель</Button>}
+            <Dropdown className="dropdown-modal">
+              <Dropdown.Toggle>Настройки</Dropdown.Toggle>
+              <Dropdown.Menu>
+                <Button variant={"outline-dark"} onClick={() => navigate(PROFILE_ROUTE)}  className="mx-2">Профиль</Button>
+                <Button variant={"outline-dark"} onClick={() => logOut()} className="mx-2 mt-2">Выйти</Button>
+              </Dropdown.Menu>
+            </Dropdown>
           </Nav>
           :
           <Nav className="ml-auto">
+
             <Button variant={"outline-light"} onClick={() => navigate(LOGIN_ROUTE)}>Авторизация</Button>
           </Nav>
         }

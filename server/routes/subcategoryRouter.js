@@ -4,7 +4,7 @@ const subcategoryController = require('../controllers/subcategoryController')
 const checkRole = require('../middleware/checkRoleMiddleware')
 
 
-router.post('/', subcategoryController.create, checkRole(1))
+router.post('/',checkRole(1), subcategoryController.create)
 router.get('/', subcategoryController.getAll)
 
 module.exports = router

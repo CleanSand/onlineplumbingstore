@@ -3,9 +3,9 @@ const router = new Router()
 const productController = require('../controllers/productController')
 const checkRole = require('../middleware/checkRoleMiddleware')
 
-router.delete('/:IDProduct', productController.delete, checkRole(1))
-router.post('/', productController.create , checkRole(1))
-router.patch('/', productController.update , checkRole(1))
+router.delete('/:IDProduct', checkRole(1), productController.delete)
+router.post('/', checkRole(1), productController.create )
+router.patch('/', checkRole(1), productController.update)
 router.get('/', productController.getAll)
 router.get('/:IDProduct', productController.getOne)
 

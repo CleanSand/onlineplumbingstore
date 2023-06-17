@@ -4,9 +4,9 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const {Op} = require('sequelize')
 
-const generateJwt = (IDUser, IDRole, PhoneNumber) =>{
+const generateJwt = (IDUser, IDRole, PhoneNumber, Email, LastName, SecondName, FirstName, BirthDate) =>{
     return jwt.sign(
-      {IDUser, IDRole, PhoneNumber },
+      {IDUser, IDRole, PhoneNumber, Email, LastName, SecondName, FirstName, BirthDate },
       process.env.SECRET_KEY,
       {expiresIn: '24h'}
     )
@@ -28,7 +28,7 @@ class UserController{
             }
             const hashPassword = await bcrypt.hash(Password, 5)
             const user = await User.create({Email, Password: hashPassword, LastName, SecondName, FirstName, BirthDate, PhoneNumber, IDRole})
-            const token = generateJwt(user.IDUser, user.IDRole, user.PhoneNumber)
+            const token = generateJwt(user.IDUser, user.IDRole, user.PhoneNumber, user.Email, user.LastName, user.SecondName, user.FirstName, user.BirthDate)
             return res.json({ token })
 
         }catch (e) {
@@ -48,7 +48,7 @@ class UserController{
             if(!comparePassword){
                 return next(ApiError.internal('Указан неверный пароль'))
             }
-            const token = generateJwt(user.IDUser, user.IDRole, user.PhoneNumber)
+            const token = generateJwt(user.IDUser, user.IDRole, user.PhoneNumber, user.Email, user.LastName, user.SecondName, user.FirstName, user.BirthDate)
             return res.json({token})
         }catch (e) {
             next(ApiError.badRequest(e.message))
@@ -56,7 +56,7 @@ class UserController{
 
     }
     async check(req, res, next){
-        const token = generateJwt(req.user.IDUser, req.user.IDRole, req.user.PhoneNumber)
+        const token = generateJwt(req.user.IDUser, req.user.IDRole, req.user.PhoneNumber, req.user.PhoneNumber, req.user.Email, req.user.LastName, req.user.SecondName, req.user.FirstName, req.user.BirthDate)
         return res.json({token})
     }
 }

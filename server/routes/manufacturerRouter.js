@@ -4,7 +4,7 @@ const manufacturerController = require('../controllers/manufacturerController')
 const checkRole = require('../middleware/checkRoleMiddleware')
 
 
-router.post('/', manufacturerController.create, checkRole(1))
+router.post('/',checkRole(1), manufacturerController.create)
 router.get('/', manufacturerController.getAll)
 
 module.exports = router
