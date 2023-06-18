@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Col, Image } from 'react-bootstrap'
+import { Button, Card, Col, Image } from 'react-bootstrap'
 import { useNavigate} from "react-router-dom"
 import { PRODUCT_ROUTE } from '../utils/const'
 
@@ -13,6 +13,7 @@ const ProductItem = ({product}) => {
             <div>{product.Name}</div>
             <div>В наличии: {product.InStock}</div>
             <div>Цена: {product.Price}</div>
+            <Button variant={"outline-dark"}>Добавить в корзину</Button>
           </div>
         </div>
       </div>

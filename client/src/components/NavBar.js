@@ -34,12 +34,16 @@ export const NavBar = observer(() => {
     navigate(ADMIN_ROUTE)
     product.Clean()
   }
+  const btnHome = () => {
+    product.page = 1
+    product.Clean()
+  }
   return (
     <Navbar className={'navigation py-3'} bg="dark" variant="dark" >
         <CategoryBar/>
       <Container>
         <Nav className={'d-flex align-items-center'}>
-          <Link onClick={() => product.Clean()} className={'nav-link_home'} to={SHOP_ROUTE}>Магазин сантехники</Link>
+          <Link onClick={btnHome} className={'nav-link_home'} to={SHOP_ROUTE}>Магазин сантехники</Link>
             <button onClick={btnCategory} className={'btn btn-primary mx-2'}>Категории</button>
         </Nav>
         {user.isAuth ?

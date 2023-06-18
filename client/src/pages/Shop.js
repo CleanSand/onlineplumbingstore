@@ -15,7 +15,7 @@ const Shop = observer(() =>{
         product.setTotalCount(data.count)
       })}
     else{
-      fetchProduct().then(data => product.setProducts(data.rows))
+      fetchProduct(undefined, product.page, 5).then(data => product.setProducts(data.rows))
     }
   }, [product.SelectedSubCategories, product.page])
 
