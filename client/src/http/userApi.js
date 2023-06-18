@@ -16,6 +16,9 @@ export const updateUser = async (user) => {
   localStorage.setItem('token', data.token)
   return jwtDecode(data.token)
 }
+export const ChangePassword = async (user) => {
+  const {data} =  await $host.patch('api/user/changePassword', user)
+}
 export const check = async (User) => {
   try {
     const {data} = await $authHost.get('api/user/auth', User)

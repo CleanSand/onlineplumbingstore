@@ -5,13 +5,18 @@ import { Context } from '../index'
 import UpdateProduct from '../components/modals/UpdateProduct'
 import { fetchOneProduct } from '../http/productApi'
 import UpdateUser from '../components/modals/UpdateUser'
+import UpdatePassword from '../components/modals/UpdatePassword'
 
 
 const Profile = () => {
   const {user} = useContext(Context)
   const [UpdateUserVisible,setUpdateUserVisible] = useState(false)
+  const [ChangePasswordVisible,setChangePasswordVisible] = useState(false)
   async function btnChangeUser (e){
     setUpdateUserVisible(true)
+  }
+  async function btnChangePassword (e){
+    setChangePasswordVisible(true)
   }
   return (
     <section>
@@ -30,12 +35,13 @@ const Profile = () => {
                   <strong>День рождения:</strong> {user.user.BirthDate} <br />
                 </Card.Text>
                 <Button variant="outline-dark"  onClick={btnChangeUser}>Редактировать профиль</Button>
-                <Button variant="outline-dark" className="mx-2" onClick={btnChangeUser}>Сменить пароль</Button>
+                <Button variant="outline-dark" className="mx-2" onClick={btnChangePassword}>Сменить пароль</Button>
               </Card.Body>
             </Card>
           </Col>
         </Row>
         <UpdateUser show={UpdateUserVisible} onHide={() => setUpdateUserVisible(false)}/>
+        <UpdatePassword show={ChangePasswordVisible} onHide={() => setChangePasswordVisible(false)}/>
       </Container>
     </section>
   )

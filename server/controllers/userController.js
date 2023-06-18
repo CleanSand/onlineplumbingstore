@@ -59,7 +59,7 @@ class UserController{
     async update(req, res, next){
         try {
             const {IDUser, IDRole, PhoneNumber, Email, LastName, SecondName, FirstName, BirthDate} = req.body
-            const updateUser = await User.update({
+            await User.update({
                   Email,
                   LastName,
                   SecondName,
@@ -73,6 +73,31 @@ class UserController{
             const token = generateJwt(IDUser, IDRole, PhoneNumber, Email, LastName, SecondName, FirstName, BirthDate)
             console.log(token)
             return res.json({token})
+        }catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+
+    }
+    async passwordChange(req, res, next){
+        try {
+            const {IDUser, passwordCurrent, changedPassword} = req.body
+            const user = await User.findOne({ where: {IDUser} })
+            let comparePassword = bcrypt.compareSync(passwordCurrent, user.Password)
+            if(comparePassword){
+                const hashPassword = await bcrypt.hash(changedPassword, 5)
+                await User.update({
+                    Password: hashPassword,
+                },
+                {
+                    where: {IDUser}
+                })
+                return res.json({ message: "Пароль успешно изменен" })
+            }
+            if(!comparePassword){
+                return next(ApiError.internal('Указан неверный пароль'))
+            }
+            //console.log(token)
+            //return res.json({token})
         }catch (e) {
             next(ApiError.badRequest(e.message))
         }
