@@ -71,7 +71,8 @@ class UserController{
                   where : {IDUser}
               })
             const token = generateJwt(IDUser, IDRole, PhoneNumber, Email, LastName, SecondName, FirstName, BirthDate)
-            return res.json({token}, updateUser)
+            console.log(token)
+            return res.json({token})
         }catch (e) {
             next(ApiError.badRequest(e.message))
         }

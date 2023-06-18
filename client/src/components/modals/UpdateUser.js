@@ -4,6 +4,9 @@ import { observer } from 'mobx-react-lite'
 import { Context } from '../../index'
 import { updateProduct } from '../../http/productApi'
 import { updateUser } from '../../http/userApi'
+import { useNavigate } from 'react-router-dom'
+import { PROFILE_ROUTE } from '../../utils/const'
+import jwtDecode from 'jwt-decode'
 
 const UpdateUser = observer(({ show, onHide }) => {
   const {user} = useContext(Context)
@@ -36,9 +39,9 @@ const UpdateUser = observer(({ show, onHide }) => {
       PhoneNumber,
       BirthDate
     };
-    console.log(localStorage.getItem('token',))
     updateUser(updatedUser).then(data => {
       onHide();
+      user.setUser(jwtDecode(localStorage.token))
     });
   };
   return (
@@ -90,7 +93,7 @@ const UpdateUser = observer(({ show, onHide }) => {
         <Button variant="outline-danger" onClick={onHide}>
           Закрыть
         </Button>
-        <Button variant="outline-success" onClick={btnUpdateProduct}>
+        <Button variant="outline-success"  onClick={btnUpdateProduct}>
           Редактировать
         </Button>
       </Modal.Footer>
