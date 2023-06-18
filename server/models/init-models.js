@@ -42,8 +42,8 @@ function initModels(sequelize) {
   Subcategory.hasMany(CategorySubcategory, { as: "CategorySubcategories", foreignKey: "IDSubcategory"});
   ProductSubcategory.belongsTo(Subcategory, { as: "IDSubcategory_Subcategory", foreignKey: "IDSubcategory"});
   Subcategory.hasMany(ProductSubcategory, { as: "ProductSubcategories", foreignKey: "IDSubcategory"});
-  Payment.belongsTo(User, { as: "IDUser_User", foreignKey: "IDUser"});
-  User.hasMany(Payment, { as: "Payments", foreignKey: "IDUser"});
+  ProductPayment.belongsTo(User, { as: "IDUser_User", foreignKey: "IDUser"});
+  User.hasMany(ProductPayment, { as: "ProductPayments", foreignKey: "IDUser"});
 
   return {
     Category,

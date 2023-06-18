@@ -30,9 +30,11 @@ export const createProduct = async (Product) => {
   const {data} =  await $authHost.post('api/product', Product)
   return data
 }
-export const fetchProduct = async (IDSubCategory) => {
+export const fetchProduct = async (IDSubCategory, page, limit = 5) => {
   const base_url = 'api/product'
-  const {data} =  await $host.get( IDSubCategory ? (base_url + '?IDSubcategory=' + IDSubCategory ) : base_url)
+  const {data} =  await $host.get( 'api/product', {params:{
+      IDSubCategory,limit, page
+    }})
   return data
 }
 export const fetchOneProduct = async (IDProduct) => {

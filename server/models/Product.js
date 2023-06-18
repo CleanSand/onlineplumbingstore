@@ -10,59 +10,59 @@ module.exports = function(sequelize, DataTypes) {
     },
     Name: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     Weight: {
       type: DataTypes.STRING(20),
-      allowNull: false
+      allowNull: true
     },
     Height: {
       type: DataTypes.STRING(20),
-      allowNull: false
+      allowNull: true
     },
     Lenght: {
       type: DataTypes.STRING(20),
-      allowNull: false
+      allowNull: true
     },
     Description: {
       type: DataTypes.STRING(300),
-      allowNull: false
+      allowNull: true
     },
     Price: {
       type: DataTypes.DECIMAL,
-      allowNull: false
+      allowNull: true
     },
     ProductType: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     TypeOfInstallation: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     Colour: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     DesignStyle: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     HousingMaterial: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     VendorCode: {
       type: DataTypes.STRING(50),
-      allowNull: false
+      allowNull: true
     },
     InStock: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: true
     },
     IDManufacturer: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Manufacturer',
         key: 'IDManufacturer'

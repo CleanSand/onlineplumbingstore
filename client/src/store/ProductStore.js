@@ -12,6 +12,9 @@ export default class ProductStore{
     this._selectedSubCategories = []
     this._selectedManufacturers = []
     this._manufacturers = []
+    this._page = 1
+    this._totalCount = 0
+    this._limit = 3
     makeAutoObservable(this)
   }
   setManufacturers(manufacturers){
@@ -25,6 +28,12 @@ export default class ProductStore{
   }
   setProductsSecond(productsSecond){
     this._productsSecond = productsSecond
+  }
+  setPage(page){
+    this._page = page
+  }
+  setTotalCount(totalCount){
+    this._totalCount = totalCount
   }
   setCategories(categories){
     this._categories = categories
@@ -42,6 +51,7 @@ export default class ProductStore{
     this._selectedProductSecond = productSecond
   }
   setSelectedSubCategories(subcategories){
+    this.setPage(1)
     this._selectedSubCategories = subcategories
   }
   setSelectedManufacturers(manufacturers){
@@ -79,5 +89,14 @@ export default class ProductStore{
   }
   get SelectedProduct() {
     return this._selectedProduct
+  }
+  get totalCount() {
+    return this._totalCount
+  }
+  get page() {
+    return this._page
+  }
+  get limit() {
+    return this._limit
   }
 }

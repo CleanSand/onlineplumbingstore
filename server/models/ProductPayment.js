@@ -18,10 +18,18 @@ module.exports = function(sequelize, DataTypes) {
     },
     IDPayment: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Payment',
         key: 'IDPayment'
+      }
+    },
+    IDUser: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: 'User',
+        key: 'IDUser'
       }
     }
   }, {

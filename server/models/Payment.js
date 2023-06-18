@@ -8,14 +8,6 @@ module.exports = function(sequelize, DataTypes) {
       allowNull: false,
       primaryKey: true
     },
-    IDUser: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      references: {
-        model: 'User',
-        key: 'IDUser'
-      }
-    },
     FinalPrice: {
       type: DataTypes.DECIMAL(19,4),
       allowNull: true
