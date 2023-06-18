@@ -3,7 +3,7 @@ import { Button, Container, Dropdown, Row } from 'react-bootstrap'
 import CreateProduct from '../components/modals/CreateProduct'
 import ProductItem from '../components/ProductItem'
 import { Context } from '../index'
-import { deleteProduct, fetchOneProduct, fetchProduct, fetchSubcategory } from '../http/productApi'
+import { deleteProduct, fetchCategory, fetchOneProduct, fetchProduct, fetchSubcategory } from '../http/productApi'
 import { observer } from 'mobx-react-lite'
 import UpdateProduct from '../components/modals/UpdateProduct'
 

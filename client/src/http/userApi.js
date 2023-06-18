@@ -11,9 +11,15 @@ export const login = async ( PhoneNumber, Password  ) => {
   localStorage.setItem('token', data.token)
   return jwtDecode(data.token)
 }
-export const check = async () => {
+export const updateUser = async (user) => {
+  const {data} =  await $host.patch('api/user/', user)
+  localStorage.setItem('token', data.token)
+
+  return jwtDecode(data.token)
+}
+export const check = async (User) => {
   try {
-    const {data} = await $authHost.get('api/user/auth', )
+    const {data} = await $authHost.get('api/user/auth', User)
     localStorage.setItem('token', data.token)
     return jwtDecode(data.token)
   }

@@ -12,6 +12,7 @@ const generateJwt = (IDUser, IDRole, PhoneNumber, Email, LastName, SecondName, F
     )
 }
 class UserController{
+
     async registration(req, res, next){
         try{
             const {Email, Password, LastName, SecondName, FirstName, BirthDate, PhoneNumber, IDRole} = req.body
@@ -55,8 +56,30 @@ class UserController{
         }
 
     }
+    async update(req, res, next){
+        try {
+            const {IDUser, IDRole, PhoneNumber, Email, LastName, SecondName, FirstName, BirthDate} = req.body
+            const updateUser = await User.update({
+                  Email,
+                  LastName,
+                  SecondName,
+                  FirstName,
+                  BirthDate,
+                  PhoneNumber,
+              },
+              {
+                  where : {IDUser}
+              })
+            const token = generateJwt(IDUser, IDRole, PhoneNumber, Email, LastName, SecondName, FirstName, BirthDate)
+            return res.json({token}, updateUser)
+        }catch (e) {
+            next(ApiError.badRequest(e.message))
+        }
+
+    }
+
     async check(req, res, next){
-        const token = generateJwt(req.user.IDUser, req.user.IDRole, req.user.PhoneNumber, req.user.PhoneNumber, req.user.Email, req.user.LastName, req.user.SecondName, req.user.FirstName, req.user.BirthDate)
+        const token = generateJwt(req.user.IDUser, req.user.IDRole, req.user.PhoneNumber, req.user.Email, req.user.LastName, req.user.SecondName, req.user.FirstName, req.user.BirthDate)
         return res.json({token})
     }
 }

@@ -126,6 +126,7 @@ class ProductController {
       const
       {
           IDProduct,
+          IDSubcategory,
           Name,
           Weight,
           Height,
@@ -160,7 +161,13 @@ class ProductController {
         {
           where: { IDProduct }
         })
-      return res.json(updateProduct)
+      const updateProductSubcategory = await ProductSubcategory.update({
+          IDSubcategory,
+        },
+        {
+          where: { IDProduct }
+        })
+      return res.json(updateProduct,updateProductSubcategory)
     } catch (e) {
       next(ApiError.badRequest(e.message))
     }

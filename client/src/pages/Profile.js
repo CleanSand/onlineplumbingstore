@@ -1,12 +1,18 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Button, Card, Col, Container, Row } from 'react-bootstrap'
 import ProductList from '../components/ProductList'
 import { Context } from '../index'
+import UpdateProduct from '../components/modals/UpdateProduct'
+import { fetchOneProduct } from '../http/productApi'
+import UpdateUser from '../components/modals/UpdateUser'
 
 
 const Profile = () => {
   const {user} = useContext(Context)
-  console.log(user.user)
+  const [UpdateUserVisible,setUpdateUserVisible] = useState(false)
+  async function btnChangeUser (e){
+    setUpdateUserVisible(true)
+  }
   return (
     <section>
       <Container>
@@ -20,14 +26,16 @@ const Profile = () => {
                   <strong>Имя:</strong> {user.user.FirstName}<br />
                   <strong>Отчество:</strong> {user.user.SecondName}<br />
                   <strong>Email:</strong> {user.user.Email}<br />
-                  <strong>Город:</strong> {user.user.PhoneNumber}<br />
-                  <strong>Страна:</strong> USA
+                  <strong>Номер телефона:</strong> {user.user.PhoneNumber}<br />
+                  <strong>День рождения:</strong> {user.user.BirthDate} <br />
                 </Card.Text>
-                <Button variant="primary">Редактировать профиль</Button>
+                <Button variant="outline-dark"  onClick={btnChangeUser}>Редактировать профиль</Button>
+                <Button variant="outline-dark" className="mx-2" onClick={btnChangeUser}>Сменить пароль</Button>
               </Card.Body>
             </Card>
           </Col>
         </Row>
+        <UpdateUser show={UpdateUserVisible} onHide={() => setUpdateUserVisible(false)}/>
       </Container>
     </section>
   )
