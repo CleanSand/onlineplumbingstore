@@ -4,13 +4,13 @@ import {useParams} from 'react-router-dom'
 import { fetchOneProduct } from '../http/productApi'
 import { observer } from 'mobx-react-lite'
 const ProductPage = observer(() => {
-
   const { id } = useParams()
+  const [products, setProducts] = useState({})
 
   useEffect(() =>{
-    fetchOneProduct(id).then(data => setProducts(data))
+    fetchOneProduct(id).then(data => setProducts(data.data))
   }, [])
-  const [products, setProducts] = useState({})
+
   console.log(products)
   return (
       <section>

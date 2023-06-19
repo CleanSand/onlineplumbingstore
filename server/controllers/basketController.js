@@ -2,7 +2,7 @@ const { ProductPayment, User } = require('../models')
 const ApiError = require('../error/ApiError')
 
 class BasketController {
-  async  add(req,res, next){
+  async add(req,res, next){
     try{
       const {IDProduct, IDUser} = req.body
       const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct} })
@@ -11,12 +11,12 @@ class BasketController {
           IDProduct,
           IDUser,
           IDPayment: null,
-          Quantity : 1
+          Quantity: 1
         })
         return res.json(basket)
-      }else{
+      } else{
         await ProductPayment.update({
-          Quantity: +1,
+          Quantity: availableProduct.Quantity + 1,
         },
           {
             where: {IDProduct, IDUser}
@@ -27,12 +27,17 @@ class BasketController {
       next(ApiError.badRequest(e.message))
     }
   }
-  async  getAllBasket(req,res){
-    const {IDUser} = req.params
-    const basket = await ProductPayment.findAll({
-      where: { IDUser, IDPayment: null }
-    })
-    return res.json(basket)
+  async getAllBasket(req, res, next){
+    try {
+      const {IDUser} = req.body
+      const basket = await ProductPayment.findAll({
+        where: { IDUser, IDPayment: null }
+      })
+      return res.json(basket)
+    }
+    catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
   }
 }
 module.exports = new BasketController()

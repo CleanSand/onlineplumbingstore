@@ -50,3 +50,7 @@ export  const addToBasket = async (Basket) =>{
   const {data} = await $host.post('api/basket/', Basket)
   return data
 }
+export const getAllProductBasket = async (IDUser) => {
+  const {data} =  await $host.get( 'api/basket', IDUser)
+  return data
+}

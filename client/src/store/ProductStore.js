@@ -2,6 +2,7 @@ import { makeAutoObservable } from 'mobx'
 
 export default class ProductStore{
   constructor () {
+    this._basket = []
     this._products = []
     this._productsSecond = []
     this._categories = []
@@ -16,6 +17,9 @@ export default class ProductStore{
     this._totalCount = 0
     this._limit = 3
     makeAutoObservable(this)
+  }
+  setBasket(basket) {
+    this._basket = basket
   }
   setManufacturers(manufacturers){
     this._manufacturers = manufacturers
@@ -98,5 +102,8 @@ export default class ProductStore{
   }
   get limit() {
     return this._limit
+  }
+  get basket() {
+    return this._basket
   }
 }
