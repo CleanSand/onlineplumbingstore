@@ -85,7 +85,7 @@ class UserController{
             let comparePassword = bcrypt.compareSync(passwordCurrent, user.Password)
             if(comparePassword){
                 const hashPassword = await bcrypt.hash(changedPassword, 5)
-                await User.update({
+                const passChange = await User.update({
                     Password: hashPassword,
                 },
                 {
@@ -96,8 +96,6 @@ class UserController{
             if(!comparePassword){
                 return next(ApiError.internal('Указан неверный пароль'))
             }
-            //console.log(token)
-            //return res.json({token})
         }catch (e) {
             next(ApiError.badRequest(e.message))
         }

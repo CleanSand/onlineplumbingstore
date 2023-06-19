@@ -2,14 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { Container, Image } from 'react-bootstrap'
 import {useParams} from 'react-router-dom'
 import { fetchOneProduct } from '../http/productApi'
-const ProductPage = () => {
-  const [products, setProducts] = useState({})
+import { observer } from 'mobx-react-lite'
+const ProductPage = observer(() => {
+
   const { id } = useParams()
 
   useEffect(() =>{
     fetchOneProduct(id).then(data => setProducts(data))
   }, [])
-
+  const [products, setProducts] = useState({})
+  console.log(products)
   return (
       <section>
         <Container>
@@ -43,6 +45,6 @@ const ProductPage = () => {
         </Container>
       </section>
   );
-};
+});
 
 export default ProductPage

@@ -18,7 +18,6 @@ const Shop = observer(() =>{
       fetchProduct(undefined, product.page, 5).then(data => product.setProducts(data.rows))
     }
   }, [product.SelectedSubCategories, product.page])
-
   return (
       <section>
         <Container className={'page-shop'}>

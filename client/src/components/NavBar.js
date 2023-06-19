@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react'
 import { Context } from '../index'
 import { Button, Container, Dropdown, Nav, Navbar } from 'react-bootstrap'
-import { ADMIN_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE } from '../utils/const'
+import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE } from '../utils/const'
 import { observer } from 'mobx-react-lite'
 import {Link} from "react-router-dom";
 import CategoryBar from "./CategoryBar";
@@ -53,6 +53,7 @@ export const NavBar = observer(() => {
               <Dropdown.Toggle>Настройки</Dropdown.Toggle>
               <Dropdown.Menu>
                 <Button variant={"outline-dark"} onClick={() => navigate(PROFILE_ROUTE)}  className="mx-2">Профиль</Button>
+                <Button variant={"outline-dark"} onClick={() => navigate(BASKET_ROUTE)}  className="mx-2 mt-2">Корзина</Button>
                 <Button variant={"outline-dark"} onClick={() => logOut()} className="mx-2 mt-2">Выйти</Button>
               </Dropdown.Menu>
             </Dropdown>

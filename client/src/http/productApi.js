@@ -22,8 +22,7 @@ export const createSubcategory = async (subcategory) => {
   return data
 }
 export const fetchSubcategory = async (id) => {
-  const base_url = 'api/subcategory'
-  const {data} =  await $host.get(id ? (base_url + '?IDCategory=' + id) : base_url)
+  const {data} =  await $host.get('api/subcategory', {params: id})
   return data
 }
 export const createProduct = async (Product) => {
@@ -31,7 +30,6 @@ export const createProduct = async (Product) => {
   return data
 }
 export const fetchProduct = async (IDSubCategory, page, limit = 5) => {
-  const base_url = 'api/product'
   const {data} =  await $host.get( 'api/product', {params:{
       IDSubCategory,limit, page
     }})
@@ -46,5 +44,9 @@ export  const deleteProduct = async (IDProduct) =>{
 }
 export  const updateProduct = async (Product) =>{
   const {data} = await $authHost.patch('api/product/', Product)
+  return data
+}
+export  const addToBasket = async (Basket) =>{
+  const {data} = await $host.post('api/basket/', Basket)
   return data
 }

@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     IDProduct: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'Product',
         key: 'IDProduct'
@@ -31,6 +31,10 @@ module.exports = function(sequelize, DataTypes) {
         model: 'User',
         key: 'IDUser'
       }
+    },
+    Quantity: {
+      type: DataTypes.INTEGER,
+      allowNull: true
     }
   }, {
     sequelize,
