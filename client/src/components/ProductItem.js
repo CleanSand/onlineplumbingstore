@@ -12,15 +12,17 @@ const ProductItem = ({product}) => {
   const [isQuntity, setisQuntity] = useState(false)
 
   useEffect(() => {
-    getOneProductBasket(user.user.IDUser, product.IDProduct).then(data => data ? setisQuntity(false) : setisQuntity(true))
+    getOneProductBasket(user.user.IDUser, product.IDProduct).then(data => data ? setisQuntity(true) : setisQuntity(false))
   })
 
-  async function btn  () {
+  function btn  () {
     const formData = new FormData();
     formData.append('IDProduct', product.IDProduct);
     formData.append('IDUser', user.user.IDUser);
     addToBasket(formData).then()
+    setisQuntity(true)
   }
+
   return (
       <div style={{width: '25%', display: "table-column", justifyContent: 'center', marginBottom: '20px'}}>
         <div style={{width: 150, cursor:'pointer'}} onClick={() => navigate(PRODUCT_ROUTE + '/' + product.IDProduct)}>
@@ -31,9 +33,7 @@ const ProductItem = ({product}) => {
             <div>Цена: {product.Price}</div>
           </div>
         </div>
-        {isQuntity
-            ? <Button variant={"outline-dark"} onClick={btn}>Добавить в корзину</Button>
-            : <Button variant={"outline-dark"} disabled={!isQuntity} onClick={btn}>Добавлен в корзину</Button> }
+        <Button variant={"outline-dark"} disabled={isQuntity} onClick={btn}>{!isQuntity ? "Добавить в корзину" : "Добавлен в корзину"}</Button>
       </div>
   )
 }
