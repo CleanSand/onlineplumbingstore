@@ -54,3 +54,7 @@ export const getAllProductBasket = async (IDUser) => {
   const {data} =  await $host.get( 'api/basket/get-all/', {params: {IDUser}} )
   return data
 }
+export const getOneProductBasket = async (IDUser, IDProduct) => {
+  const {data} =  await $host.get( 'api/basket/get-one/', {params: {IDUser, IDProduct}} )
+  return data
+}

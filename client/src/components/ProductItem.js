@@ -1,17 +1,22 @@
-import React, { useContext } from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import { Button, Card, Col, Image } from 'react-bootstrap'
 import { useNavigate} from "react-router-dom"
 import { PRODUCT_ROUTE } from '../utils/const'
-import { addToBasket, createProduct } from '../http/productApi'
+import {addToBasket, createProduct, getOneProductBasket} from '../http/productApi'
 import { Context } from '../index'
+import data from "bootstrap/js/src/dom/data";
 
 const ProductItem = ({product}) => {
   const navigate = useNavigate()
   const {user} = useContext(Context)
-  const btn = () => {
+  const [isQuntity, setisQuntity] = useState(false)
+
+  useEffect(() => {
+    getOneProductBasket(user.user.IDUser, product.IDProduct).then(data => data ? setisQuntity(false) : setisQuntity(true))
+  })
+
+  async function btn  () {
     const formData = new FormData();
-
-
     formData.append('IDProduct', product.IDProduct);
     formData.append('IDUser', user.user.IDUser);
     addToBasket(formData).then()
@@ -26,7 +31,9 @@ const ProductItem = ({product}) => {
             <div>Цена: {product.Price}</div>
           </div>
         </div>
-        <Button variant={"outline-dark"} onClick={btn}>Добавить в корзину</Button>
+        {isQuntity
+            ? <Button variant={"outline-dark"} onClick={btn}>Добавить в корзину</Button>
+            : <Button variant={"outline-dark"} disabled={!isQuntity} onClick={btn}>Добавлен в корзину</Button> }
       </div>
   )
 }

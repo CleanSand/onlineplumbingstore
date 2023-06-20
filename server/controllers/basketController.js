@@ -50,5 +50,26 @@ class BasketController {
       next(ApiError.badRequest(e.message))
     }
   }
+  async getOne(req, res, next){
+    try {
+      const  {IDUser, IDProduct} = req.query
+      const basket = await models.ProductPayment.findOne({
+        include: [{
+          model: models.User,
+          association: 'IDUser_User',
+          where: {IDUser}
+        },
+          {
+            model: models.Product,
+            association: 'IDProduct_Product',
+            where: {IDProduct}
+          }]
+      })
+      return res.json(basket)
+    }
+    catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
+  }
 }
 module.exports = new BasketController()
