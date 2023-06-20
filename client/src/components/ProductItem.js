@@ -8,15 +8,12 @@ import { Context } from '../index'
 const ProductItem = ({product}) => {
   const navigate = useNavigate()
   const {user} = useContext(Context)
-  console.log(product.IDProduct)
   const btn = () => {
     const formData = new FormData();
 
 
     formData.append('IDProduct', product.IDProduct);
     formData.append('IDUser', user.user.IDUser);
-    console.log("IDProduct",product.IDProduct)
-    console.log("IDUser",user.user.IDUser)
     addToBasket(formData).then()
   }
   return (

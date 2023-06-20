@@ -1,6 +1,9 @@
 const { ProductPayment, User } = require('../models')
 const ApiError = require('../error/ApiError')
+const {initModels} = require('../models/init-models')
 
+const sequelize = require('../db')
+const models = initModels(sequelize)
 class BasketController {
   async add(req,res, next){
     try{
@@ -27,11 +30,19 @@ class BasketController {
       next(ApiError.badRequest(e.message))
     }
   }
-  async getAllBasket(req, res, next){
+  async getAll(req, res, next){
     try {
-      const {IDUser} = req.body
-      const basket = await ProductPayment.findAll({
-        where: { IDUser, IDPayment: null }
+      const  {IDUser} = req.query
+      const basket = await models.ProductPayment.findAll({
+        include: [{
+          model: models.User,
+          association: 'IDUser_User',
+          where: {IDUser}
+        },
+          {
+            model: models.Product,
+            association: 'IDProduct_Product'
+          }]
       })
       return res.json(basket)
     }

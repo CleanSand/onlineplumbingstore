@@ -6,7 +6,7 @@ import { observer } from 'mobx-react-lite'
 import {Link} from "react-router-dom";
 import CategoryBar from "./CategoryBar";
 import {useNavigate} from 'react-router-dom'
-import { fetchCategory, fetchProduct, fetchSubcategory } from '../http/productApi'
+import { fetchCategory, fetchSubcategory, getAllProductBasket } from '../http/productApi'
 import data from 'bootstrap/js/src/dom/data'
 
 
@@ -28,7 +28,8 @@ export const NavBar = observer(() => {
   useEffect(() =>{
     fetchCategory().then(data => product.setCategories(data))
     fetchSubcategory().then(data => product.setSubCategories(data))
-    console.log(user.user.IDRole)
+    getAllProductBasket(user.user.IDUser).then(data => product.setBasket(data))
+    console.log(product.basket)
   }, [])
   const btn = () => {
     navigate(ADMIN_ROUTE)

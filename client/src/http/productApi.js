@@ -51,6 +51,6 @@ export  const addToBasket = async (Basket) =>{
   return data
 }
 export const getAllProductBasket = async (IDUser) => {
-  const {data} =  await $host.get( 'api/basket', IDUser)
+  const {data} =  await $host.get( 'api/basket/get-all/', {params: {IDUser}} )
   return data
 }

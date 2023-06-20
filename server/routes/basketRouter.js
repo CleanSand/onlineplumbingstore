@@ -4,6 +4,6 @@ const basketController = require('../controllers/basketController')
 const authMiddleware = require('../middleware/authMiddleware')
 
 router.post('/', basketController.add)
-router.get('/', basketController.getAllBasket)
+router.get('/get-all', basketController.getAll)
 
 module.exports = router

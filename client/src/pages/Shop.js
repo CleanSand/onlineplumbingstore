@@ -9,11 +9,6 @@ import Pages from '../components/Pages'
 const Shop = observer(() =>{
   const {product, user} = useContext(Context)
   useEffect(() =>{
-    console.log(user.user.IDUser)
-    getAllProductBasket(user.user.IDUser).then(data => {
-      product.setBasket(data)
-    })
-    console.log(product.basket)
     if(product.SelectedSubCategories){
       fetchProduct(product.SelectedSubCategories.IDSubcategory, product.page , 5).then(data => {
         product.setProducts(data.rows)
