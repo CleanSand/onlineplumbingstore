@@ -133,6 +133,31 @@
     height: 500px;
     width: auto;
 }
+.image-basket {
+    height: 100px;
+    width: 100px;
+}
+.card-basket{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.basket-item-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.basket-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.basket-item-name {
+    margin-top: 10px;
+    text-align: center;
+}
 
 .product-price {
     height: 100px;

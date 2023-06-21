@@ -17,15 +17,7 @@ class BasketController {
           Quantity: 1
         })
         return res.json(basket)
-      } else{
-        await ProductPayment.update({
-          Quantity: availableProduct.Quantity + 1,
-        },
-          {
-            where: {IDProduct, IDUser}
-          })
       }
-
     } catch (e){
       next(ApiError.badRequest(e.message))
     }
@@ -66,6 +58,49 @@ class BasketController {
           }]
       })
       return res.json(basket)
+    }
+    catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
+  }
+  async PlusQuantity(req, res, next){
+    try {
+      const  {IDUser, IDProduct} = req.query
+      const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct} })
+      await ProductPayment.update({
+          Quantity: availableProduct.Quantity + 1,
+        },
+        {
+          where: {IDProduct, IDUser}
+        })
+    }
+    catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
+  }
+  async MinusQuantity(req, res, next){
+    try {
+      const  {IDUser, IDProduct} = req.query
+      const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct} })
+      if (availableProduct.Quantity > 1){
+        await ProductPayment.update({
+            Quantity: availableProduct.Quantity - 1,
+          },
+          {
+            where: {IDProduct, IDUser}
+          })
+      }
+    }
+    catch (e) {
+      next(ApiError.badRequest(e.message))
+    }
+  }
+  async DeleteFromBasket(req, res, next){
+    try {
+      const  {IDUser, IDProduct} = req.query
+      const del = await ProductPayment.destroy({
+        where: {IDProduct: IDProduct, IDUser: IDUser}
+      })
     }
     catch (e) {
       next(ApiError.badRequest(e.message))

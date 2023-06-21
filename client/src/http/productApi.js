@@ -46,8 +46,8 @@ export  const updateProduct = async (Product) =>{
   const {data} = await $authHost.patch('api/product/', Product)
   return data
 }
-export  const addToBasket = async (Basket) =>{
-  const {data} = await $host.post('api/basket/', Basket)
+export  const addToBasket = async (Product) =>{
+  const {data} = await $host.post('api/basket/', Product)
   return data
 }
 export const getAllProductBasket = async (IDUser) => {
@@ -56,5 +56,9 @@ export const getAllProductBasket = async (IDUser) => {
 }
 export const getOneProductBasket = async (IDUser, IDProduct) => {
   const {data} =  await $host.get( 'api/basket/get-one/', {params: {IDUser, IDProduct}} )
+  return data
+}
+export const deleteFromBasket = async (IDProduct, IDUser) => {
+  const {data} =  await $host.delete( 'api/basket/delete/', {params: {IDProduct, IDUser}} )
   return data
 }

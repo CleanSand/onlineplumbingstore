@@ -17,6 +17,10 @@ export const NavBar = observer(() => {
   const logOut = () =>{
     user.onLogout()
   }
+  async function getBasket () {
+    await getAllProductBasket(user.user.IDUser).then(data => product.setBasket(data))
+    console.log(product.basket)
+  }
   const btnCategory = () => {
     const dropMenuCategory = document.querySelector('.drop-list_category')
 
@@ -26,6 +30,9 @@ export const NavBar = observer(() => {
       dropMenuCategory.classList.add('active')
   }
   useEffect(() =>{
+    if (product.basket.length == 0 || product.basket.length == null) {
+      getBasket()
+    }
     fetchCategory().then(data => product.setCategories(data))
     fetchSubcategory().then(data => product.setSubCategories(data))
     getAllProductBasket(user.user.IDUser).then(data => product.setBasket(data))

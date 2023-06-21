@@ -21,7 +21,11 @@ const UpdateProduct = observer(({ show, onHide }) => {
   const [VendorCode, setVendorCode] = useState('');
   const [InStock, setInStock] = useState('');
   const [IDManufacturer, setIDManufacturer] = useState('');
+  const [File, setFile] = useState(null);
 
+  const selectFile = e => {
+    setFile(e.target.files[0]);
+  };
 
   useEffect(() => {
     // Заполнение полей данными при открытии модального окна
@@ -43,25 +47,27 @@ const UpdateProduct = observer(({ show, onHide }) => {
   }, [product.SelectedProduct]);
 
   const btnUpdateProduct = () => {
-    const updatedProduct = {
-      IDProduct: product.SelectedProduct.IDProduct,
-      Name: Name,
-      Description: Description,
-      Height: Height,
-      Weight: Weight,
-      Length: Lenght,
-      Price: Price,
-      ProductType: ProductType,
-      TypeOfInstallation: TypeOfInstallation,
-      Colour: Colour,
-      DesignStyle: DesignStyle,
-      HousingMaterial: HousingMaterial,
-      VendorCode: VendorCode,
-      InStock: InStock,
-      IDSubcategory : product.SelectedSubCategories.IDSubcategory
-    };
+    const formData = new FormData();
 
-    updateProduct(updatedProduct).then(data => {
+    formData.append('Name', Name);
+    formData.append('IDProduct', product.SelectedProduct.IDProduct);
+    formData.append('Price', `${Price}`);
+    formData.append('Image', File);
+    formData.append('IDSubcategory', product.SelectedSubCategories.IDSubcategory);
+    formData.append('Height', Height);
+    formData.append('Weight', Weight);
+    formData.append('Lenght', Lenght);
+    formData.append('ProductType', ProductType);
+    formData.append('TypeOfInstallation', TypeOfInstallation);
+    formData.append('Description', Description);
+    formData.append('Colour', Colour);
+    formData.append('DesignStyle', DesignStyle);
+    formData.append('HousingMaterial', HousingMaterial);
+    formData.append('VendorCode', VendorCode);
+    formData.append('InStock', InStock);
+    formData.append('IDManufacturer', product.SelectedManufacturers.IDManufacturer);
+    console.log(File)
+    updateProduct(formData).then(data => {
       onHide();
     });
   };
@@ -199,6 +205,7 @@ const UpdateProduct = observer(({ show, onHide }) => {
               className="form-control"
               placeholder="Введите количество товара в наличие товара"
             />
+            <Form.Control className="form-control" type="file" onChange={selectFile} />
             <hr />
           </Form>
         </Modal.Body>

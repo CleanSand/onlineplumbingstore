@@ -142,6 +142,9 @@ class ProductController {
           InStock,
           IDManufacturer,
       } = req.body
+      const {Image} = req.files
+      let fileName = uuid.v4()+ ".jpg"
+      await Image.mv(path.resolve(__dirname, '..', 'static', fileName))
       const updateProduct = await Product.update({
           Name,
           Weight,
@@ -157,6 +160,7 @@ class ProductController {
           VendorCode,
           InStock,
           IDManufacturer,
+          Image: fileName
         },
         {
           where: { IDProduct }
