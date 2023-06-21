@@ -62,3 +62,11 @@ export const deleteFromBasket = async (IDProduct, IDUser) => {
   const {data} =  await $host.delete( 'api/basket/delete/', {params: {IDProduct, IDUser}} )
   return data
 }
+export const plusQuantityBasket = async (IDProduct, IDUser) => {
+  const {data} =  await $host.patch( 'api/basket/plus-quantity/', {params: {IDProduct, IDUser}} )
+  return data
+}
+export const minusQuantityBasket = async (IDProduct, IDUser) => {
+  const {data} =  await $host.patch( 'api/basket/minus-quantity/', {params: {IDProduct, IDUser}} )
+  return data
+}
