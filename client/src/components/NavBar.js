@@ -62,6 +62,7 @@ export const NavBar = observer(() => {
               <Dropdown.Menu>
                 <Button variant={"outline-dark"} onClick={() => navigate(PROFILE_ROUTE)}  className="mx-2">Профиль</Button>
                 <Button variant={"outline-dark"} onClick={() => navigate(BASKET_ROUTE)}  className="mx-2 mt-2">Корзина</Button>
+                <Button variant={"outline-dark"} onClick={() => navigate(BASKET_ROUTE)}  className="mx-2 mt-2">История покупок</Button>
                 <Button variant={"outline-dark"} onClick={() => logOut()} className="mx-2 mt-2">Выйти</Button>
               </Dropdown.Menu>
             </Dropdown>

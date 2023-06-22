@@ -3,15 +3,32 @@ import { Card, Container, Image } from 'react-bootstrap'
 import ProductItem from '../components/ProductItem'
 import { Context } from '../index'
 import { observer } from 'mobx-react-lite'
-import {plusQuantityBasket} from "../http/productApi";
+import { createPayment, deleteProduct, minusQuantityBasket, plusQuantityBasket } from '../http/productApi'
 
 const Basket = observer(() => {
   const {product, user} = useContext(Context)
 
-  async function add(id) {
-    await plusQuantityBasket(id, user.user.IDUser)
+  const plus = (e) =>  {
+    const key = e.target.dataset.key
+    const formData = new FormData();
+    formData.append('IDProduct', key);
+    formData.append('IDUser', user.user.IDUser);
+    plusQuantityBasket(formData).then()
   }
-
+  const minus = (e) =>  {
+    const key = e.target.dataset.key
+    const formData = new FormData();
+    formData.append('IDProduct', key);
+    formData.append('IDUser', user.user.IDUser);
+    minusQuantityBasket(formData).then()
+  }
+  const payment = () =>  {
+    const formData = new FormData();
+    formData.append('IDUser', user.user.IDUser);
+    formData.append('FinalPrice', totalCost);
+    formData.append('FinalQuantity', totalQuantity);
+    createPayment(formData).then()
+  }
   const totalCost = product.basket.reduce((total, basket) => {
     const price = parseFloat(basket.IDProduct_Product.Price);
     const quantity = parseFloat(basket.Quantity);
@@ -40,9 +57,9 @@ const Basket = observer(() => {
                       <h5 className="card-title">{basket.IDProduct_Product.Name}</h5>
                       <p>{basket.IDProduct_Product.Price} ₽</p>
                       <div className="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" disabled={basket.Quantity <= 1} className="btn btn-secondary">-</button>
+                        <button onClick={minus} type="button" disabled={basket.Quantity <= 1} data-key={basket.IDProduct} className="btn btn-secondary">-</button>
                         <button disabled={true} type="button" className="btn btn-secondary">{basket.Quantity}</button>
-                        <button onClick={add(basket.IDProduct_Product.IDProduct)} type="button" disabled={basket.Quantity >= 9} className="btn btn-secondary">+</button>
+                        <button onClick={plus} type="button" disabled={basket.Quantity >= 9} data-key={basket.IDProduct} className="btn btn-secondary">+</button>
                       </div>
                       <button type="button" className="mt-3 btn btn-danger">Удалить</button>
                     </div>
@@ -58,7 +75,7 @@ const Basket = observer(() => {
               <div className="card-body">
                 <h5 className="card-title">Стоимость: {totalCost} ₽</h5>
                 <p className="card-text">Количество {totalQuantity}</p>
-                <button style={{width: '100%'}} className="btn btn-secondary">Перейти к оплате</button>
+                <button onClick={payment} style={{width: '100%'}} className="btn btn-secondary">Перейти к оплате</button>
               </div>
             </div>
           </div>

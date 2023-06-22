@@ -26,6 +26,7 @@ class BasketController {
     try {
       const  {IDUser} = req.query
       const basket = await models.ProductPayment.findAll({
+      where: {IDPayment: null},
         include: [{
           model: models.User,
           association: 'IDUser_User',
@@ -46,6 +47,7 @@ class BasketController {
     try {
       const  {IDUser, IDProduct} = req.query
       const basket = await models.ProductPayment.findOne({
+        where: {IDPayment: null},
         include: [{
           model: models.User,
           association: 'IDUser_User',
@@ -65,14 +67,15 @@ class BasketController {
   }
   async PlusQuantity(req, res, next){
     try {
-      const  {IDUser, IDProduct} = req.query
+      const  {IDUser, IDProduct} = req.body
       const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct} })
-      await ProductPayment.update({
+      const qwe = await ProductPayment.update({
           Quantity: availableProduct.Quantity + 1,
         },
         {
-          where: {IDProduct, IDUser}
+          where: {IDUser, IDProduct}
         })
+      return res.json(availableProduct)
     }
     catch (e) {
       next(ApiError.badRequest(e.message))
@@ -80,7 +83,7 @@ class BasketController {
   }
   async MinusQuantity(req, res, next){
     try {
-      const  {IDUser, IDProduct} = req.query
+      const  {IDUser, IDProduct} = req.body
       const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct} })
       if (availableProduct.Quantity > 1){
         await ProductPayment.update({
@@ -97,7 +100,7 @@ class BasketController {
   }
   async DeleteFromBasket(req, res, next){
     try {
-      const  {IDUser, IDProduct} = req.query
+      const  {IDUser, IDProduct} = req.params
       const del = await ProductPayment.destroy({
         where: {IDProduct: IDProduct, IDUser: IDUser}
       })
