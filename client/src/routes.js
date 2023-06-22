@@ -6,13 +6,14 @@ import {
   BASKET_ROUTE,
   LOGIN_ROUTE,
   PRODUCT_ROUTE,
-  PROFILE_ROUTE,
+  PROFILE_ROUTE, PURCHASE_HISTORY_ROUTE,
   REGISTRATION_ROUTE,
   SHOP_ROUTE
 } from './utils/const'
 import ProductPage from './pages/ProductPage'
 import Basket from './pages/Basket'
 import Profile from './pages/Profile'
+import PurchaseHistory from './pages/PurchaseHistory'
 
 export const authRoutes = [
   {
@@ -26,6 +27,10 @@ export const authRoutes = [
   {
     path: PROFILE_ROUTE,
     Component: <Profile />
+  },
+  {
+    path: PURCHASE_HISTORY_ROUTE,
+    Component: <PurchaseHistory />
   },
 ]
 export const publicRoutes = [

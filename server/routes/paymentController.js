@@ -5,5 +5,6 @@ const checkRole = require('../middleware/checkRoleMiddleware')
 
 
 router.post('/', paymentController.create)
+router.get('/', paymentController.getHistory)
 
 module.exports = router

@@ -4,7 +4,7 @@ import ProductItem from '../components/ProductItem'
 import { Context } from '../index'
 import { observer } from 'mobx-react-lite'
 import {
-  createPayment,
+  createPayment, deleteFromBasket,
   deleteProduct,
   getAllProductBasket,
   minusQuantityBasket,
@@ -68,6 +68,14 @@ const Basket = observer(() => {
     quantityDoc.innerHTML = "Количество " + setTotalQuantity().toString()
     setCard()
   }
+  function btnDeleteFromBasket  (e, key) {
+
+    const formData = new FormData();
+    formData.append('IDProduct', key);
+    formData.append('IDUser', user.user.IDUser);
+
+    deleteFromBasket(formData).then()
+  }
 
   const payment = () =>  {
     const formData = new FormData();
@@ -108,7 +116,7 @@ const Basket = observer(() => {
                         <button id={basket.IDProduct} disabled={true} type="button" className="btn btn-secondary quantity">{basket.Quantity}</button>
                         <button onClick={(e) => plus(e, basket.IDProduct)} type="button" data-key={basket.IDProduct} className="btn btn-secondary">+</button>
                       </div>
-                      <button type="button" className="mt-3 btn btn-danger">Удалить</button>
+                      <button type="button"onClick={(e) => btnDeleteFromBasket(e, basket.IDProduct)} className="mt-3 btn btn-danger">Удалить</button>
                     </div>
                 </div>
               </div>

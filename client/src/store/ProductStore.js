@@ -4,6 +4,7 @@ export default class ProductStore{
   constructor () {
     this._basket = []
     this._products = []
+    this._historyproducts = []
     this._productsSecond = []
     this._categories = []
     this._subcategories = []
@@ -27,8 +28,16 @@ export default class ProductStore{
   Clean(){
     this._selectedSubCategories = []
   }
+  CleanBasket(){
+    this._basket = []
+  }
+
   setProducts(products){
     this._products = products
+  }
+
+  setHistoryProduct(historyProducts){
+    this._historyproducts = historyProducts
   }
   setProductsSecond(productsSecond){
     this._productsSecond = productsSecond
@@ -67,6 +76,9 @@ export default class ProductStore{
 
   get products(){
     return this._products
+  }
+  get historyProduct(){
+    return this._historyproducts
   }
 
   get productsSecond(){

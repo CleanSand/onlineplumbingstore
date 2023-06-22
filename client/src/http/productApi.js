@@ -59,8 +59,8 @@ export const getOneProductBasket = async (IDUser, IDProduct) => {
   const {data} =  await $host.get( 'api/basket/get-one/', {params: {IDUser, IDProduct}} )
   return data
 }
-export const deleteFromBasket = async (IDProduct, IDUser) => {
-  const {data} =  await $host.delete( 'api/basket/delete/', {params: {IDProduct, IDUser}} )
+export const deleteFromBasket = async (Product) => {
+  const {data} =  await $host.delete( 'api/basket/delete', { data: Product })
   return data
 }
 export const plusQuantityBasket = async (Basket) => {
@@ -73,5 +73,9 @@ export const minusQuantityBasket = async (Basket) => {
 }
 export const createPayment = async (payment) => {
   const {data} =  await $host.post( 'api/payment/', payment )
+  return data
+}
+export const getAllHistory = async (IDUser) => {
+  const {data} =  await $host.get( `api/payment?IDUser=${IDUser}`)
   return data
 }

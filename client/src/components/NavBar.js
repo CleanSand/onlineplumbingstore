@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import { Context } from '../index'
 import { Button, Container, Dropdown, Nav, Navbar } from 'react-bootstrap'
-import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE } from '../utils/const'
+import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE, PURCHASE_HISTORY_ROUTE } from '../utils/const'
 import { observer } from 'mobx-react-lite'
 import {Link} from "react-router-dom";
 import CategoryBar from "./CategoryBar";
 import {useNavigate} from 'react-router-dom'
-import { fetchCategory, fetchSubcategory, getAllProductBasket } from '../http/productApi'
+import { fetchCategory, fetchSubcategory, getAllHistory, getAllProductBasket } from '../http/productApi'
 import data from 'bootstrap/js/src/dom/data'
 
 
@@ -18,8 +18,11 @@ export const NavBar = observer(() => {
     user.onLogout()
   }
   async function getBasket () {
-    await getAllProductBasket(user.user.IDUser).then(data => product.setBasket(data))
-    console.log(product.basket)
+    product.CleanBasket()
+    if (product.basket.length == 0 || product.basket.length == null) {
+      await getAllProductBasket(user.user.IDUser).then(data => product.setBasket(data))
+      console.log(product.basket)
+    }
   }
   const btnCategory = () => {
     const dropMenuCategory = document.querySelector('.drop-list_category')
@@ -30,9 +33,8 @@ export const NavBar = observer(() => {
       dropMenuCategory.classList.add('active')
   }
   useEffect(() =>{
-    if (product.basket.length == 0 || product.basket.length == null) {
-      getBasket()
-    }
+
+    getBasket()
     fetchCategory().then(data => product.setCategories(data))
     fetchSubcategory().then(data => product.setSubCategories(data))
     getAllProductBasket(user.user.IDUser).then(data => product.setBasket(data))
@@ -41,6 +43,17 @@ export const NavBar = observer(() => {
   const btn = () => {
     navigate(ADMIN_ROUTE)
     product.Clean()
+  }
+  const btnBasket = () => {
+    navigate(BASKET_ROUTE)
+    getBasket()
+  }
+  const btnHistory = async () => {
+    const data = await getAllHistory(user.user.IDUser);
+    product.setHistoryProduct(data);
+    navigate(PURCHASE_HISTORY_ROUTE)
+    console.log(data)
+    console.log(product.historyProduct.IDPayment)
   }
   const btnHome = () => {
     product.page = 1
@@ -61,8 +74,8 @@ export const NavBar = observer(() => {
               <Dropdown.Toggle>Настройки</Dropdown.Toggle>
               <Dropdown.Menu className={"dropmenu"}>
                 <Button variant={"outline-dark"} onClick={() => navigate(PROFILE_ROUTE)}>Профиль</Button>
-                <Button variant={"outline-dark"} onClick={() => navigate(BASKET_ROUTE)}>Корзина</Button>
-                <Button variant={"outline-dark"} onClick={() => navigate(BASKET_ROUTE)}>История покупок</Button>
+                <Button variant={"outline-dark"} onClick={btnBasket}>Корзина</Button>
+                <Button variant={"outline-dark"} onClick={btnHistory}>История покупок</Button>
                 <Button variant={"outline-dark"} onClick={() => logOut()}>Выйти</Button>
               </Dropdown.Menu>
             </Dropdown>

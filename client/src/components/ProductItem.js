@@ -23,7 +23,11 @@ const ProductItem = ({product}) => {
     setisQuntity(true)
   }
   function btnDeleteFromBasket  () {
-    deleteFromBasket(product.IDProduct, user.user.IDUser).then()
+    const formDataDel = new FormData();
+
+    formDataDel.append('IDUser', user.user.IDUser);
+    formDataDel.append('IDProduct', product.IDProduct);
+    deleteFromBasket(formDataDel).then()
     setisQuntity(false)
   }
 

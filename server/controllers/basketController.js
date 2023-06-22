@@ -8,7 +8,7 @@ class BasketController {
   async add(req,res, next){
     try{
       const {IDProduct, IDUser} = req.body
-      const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct} })
+      const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct, IDPayment: null} })
       if(!availableProduct){
         const basket = await ProductPayment.create({
           IDProduct,
@@ -17,6 +17,8 @@ class BasketController {
           Quantity: 1
         })
         return res.json(basket)
+      }else{
+        return res.json("Уже присутствует в корзине")
       }
     } catch (e){
       next(ApiError.badRequest(e.message))
@@ -68,14 +70,14 @@ class BasketController {
   async PlusQuantity(req, res, next){
     try {
       const  {IDUser, IDProduct} = req.body
-      const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct} })
+      const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct, IDPayment: null} })
       const qwe = await ProductPayment.update({
           Quantity: availableProduct.Quantity + 1,
         },
         {
-          where: {IDUser, IDProduct}
+          where: {IDUser, IDProduct, IDPayment: null}
         })
-      return res.json(availableProduct)
+      return res.json(qwe)
     }
     catch (e) {
       next(ApiError.badRequest(e.message))
@@ -84,14 +86,17 @@ class BasketController {
   async MinusQuantity(req, res, next){
     try {
       const  {IDUser, IDProduct} = req.body
-      const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct} })
+      const availableProduct = await ProductPayment.findOne({ where: {IDUser, IDProduct, IDPayment: null} })
       if (availableProduct.Quantity > 1){
         await ProductPayment.update({
             Quantity: availableProduct.Quantity - 1,
           },
           {
-            where: {IDProduct, IDUser}
+            where: {IDProduct, IDUser, IDPayment: null}
           })
+        return res.json("Успешно")
+      }else{
+        return res.json("Не возможно уменьшить кол-во")
       }
     }
     catch (e) {
@@ -100,10 +105,11 @@ class BasketController {
   }
   async DeleteFromBasket(req, res, next){
     try {
-      const  {IDUser, IDProduct} = req.params
+      const  {IDUser, IDProduct} = req.body
       const del = await ProductPayment.destroy({
-        where: {IDProduct: IDProduct, IDUser: IDUser}
+        where: {IDProduct, IDUser, IDPayment: null}
       })
+      return res.json(del || "Такого продукта в корзине нет")
     }
     catch (e) {
       next(ApiError.badRequest(e.message))
