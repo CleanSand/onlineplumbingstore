@@ -59,11 +59,11 @@ export const NavBar = observer(() => {
             {user.user.IDRole === 1 && <Button variant={"outline-light"} className="mx-2" onClick={btn}>Админ панель</Button>}
             <Dropdown>
               <Dropdown.Toggle>Настройки</Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Button variant={"outline-dark"} onClick={() => navigate(PROFILE_ROUTE)}  className="mx-2">Профиль</Button>
-                <Button variant={"outline-dark"} onClick={() => navigate(BASKET_ROUTE)}  className="mx-2 mt-2">Корзина</Button>
-                <Button variant={"outline-dark"} onClick={() => navigate(BASKET_ROUTE)}  className="mx-2 mt-2">История покупок</Button>
-                <Button variant={"outline-dark"} onClick={() => logOut()} className="mx-2 mt-2">Выйти</Button>
+              <Dropdown.Menu className={"dropmenu"}>
+                <Button variant={"outline-dark"} onClick={() => navigate(PROFILE_ROUTE)}>Профиль</Button>
+                <Button variant={"outline-dark"} onClick={() => navigate(BASKET_ROUTE)}>Корзина</Button>
+                <Button variant={"outline-dark"} onClick={() => navigate(BASKET_ROUTE)}>История покупок</Button>
+                <Button variant={"outline-dark"} onClick={() => logOut()}>Выйти</Button>
               </Dropdown.Menu>
             </Dropdown>
           </Nav>

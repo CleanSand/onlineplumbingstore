@@ -179,3 +179,13 @@
 .form-control{
     margin-top: 5px;
 }
+
+.dropmenu {
+    width: 200px;
+    padding: 10px;
+}
+
+.dropmenu Button {
+    width: 100%;
+    margin: 5px 0;
+}
