@@ -33,7 +33,6 @@ export const NavBar = observer(() => {
       dropMenuCategory.classList.add('active')
   }
   useEffect(() =>{
-
     getBasket()
     fetchCategory().then(data => product.setCategories(data))
     fetchSubcategory().then(data => product.setSubCategories(data))
@@ -49,11 +48,7 @@ export const NavBar = observer(() => {
     getBasket()
   }
   const btnHistory = async () => {
-    const data = await getAllHistory(user.user.IDUser);
-    product.setHistoryProduct(data);
     navigate(PURCHASE_HISTORY_ROUTE)
-    console.log(data)
-    console.log(product.historyProduct.IDPayment)
   }
   const btnHome = () => {
     product.page = 1

@@ -189,3 +189,12 @@
     width: 100%;
     margin: 5px 0;
 }
+
+.card_history {
+    cursor: pointer;
+    transition: background ease .3s;
+}
+
+.card_history:hover {
+    background: rgba(0, 0, 0, .1);
+}
