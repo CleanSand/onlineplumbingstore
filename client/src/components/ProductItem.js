@@ -4,7 +4,6 @@ import { useNavigate} from "react-router-dom"
 import { PRODUCT_ROUTE } from '../utils/const'
 import { addToBasket, createProduct, deleteFromBasket, getOneProductBasket } from '../http/productApi'
 import { Context } from '../index'
-import data from "bootstrap/js/src/dom/data";
 
 const ProductItem = ({product}) => {
   const navigate = useNavigate()
@@ -13,39 +12,44 @@ const ProductItem = ({product}) => {
 
   useEffect(() => {
     getOneProductBasket(user.user.IDUser, product.IDProduct).then(data => data ? setisQuntity(true) : setisQuntity(false))
-  })
+  }, [product, user])
 
-  function btnAddInBasket  () {
+  async function btnAddInBasket() {
     const formData = new FormData();
     formData.append('IDProduct', product.IDProduct);
     formData.append('IDUser', user.user.IDUser);
-    addToBasket(formData).then()
-    setisQuntity(true)
-  }
-  function btnDeleteFromBasket  () {
-    const formDataDel = new FormData();
 
+    await addToBasket(formData);
+    setisQuntity(true);
+  }
+  async function btnDeleteFromBasket() {
+    const formDataDel = new FormData();
     formDataDel.append('IDUser', user.user.IDUser);
     formDataDel.append('IDProduct', product.IDProduct);
-    deleteFromBasket(formDataDel).then()
-    setisQuntity(false)
+
+    await deleteFromBasket(formDataDel);
+    setisQuntity(false);
   }
 
   return (
-      <div style={{width: '25%', display: "table-column", justifyContent: 'center', marginBottom: '20px'}}>
-        <div style={{width: 150, cursor:'pointer'}} onClick={() => navigate(PRODUCT_ROUTE + '/' + product.IDProduct)}>
-          <Image width={150} height={150} src={process.env.REACT_APP_API_URL + product.Image}/>
-          <div className="text-product-item">
-            <div>{product.Name}</div>
-            <div>В наличии: {product.InStock}</div>
-            <div>Цена: {product.Price}</div>
+        <div className="card m-3" style={{maxWidth: "540px"}}>
+          <div className="row g-0">
+            <div className="col-md-4">
+              <img src={process.env.REACT_APP_API_URL + product.Image} className="img-fluid rounded-start" alt="..." />
+            </div>
+            <div className="col-md-8">
+              <div className="card-body">
+                <h5 className="card-title product-name">{product.Name}</h5>
+                <p className="card-text">В наличии: {product.InStock}</p>
+                <p className="card-text">Цена: {product.Price}</p>
+              </div>
+            </div>
+            {!isQuntity ? <Button variant={"outline-dark"} onClick={btnAddInBasket}>Добавить в корзину</Button>
+                :
+                <Button variant={"outline-dark"} onClick={btnDeleteFromBasket}>Удалить из корзины</Button>
+            }
           </div>
         </div>
-        {!isQuntity ? <Button variant={"outline-dark"} onClick={btnAddInBasket}>Добавить в корзину</Button>
-          :
-          <Button variant={"outline-dark"} onClick={btnDeleteFromBasket}>Удалить из корзины</Button>
-        }
-      </div>
   )
 }
 

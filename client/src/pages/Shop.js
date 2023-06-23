@@ -9,17 +9,14 @@ import Pages from '../components/Pages'
 const Shop = observer(() =>{
   const {product, user} = useContext(Context)
 
-
-
   useEffect(() =>{
-
     if(product.SelectedSubCategories){
-      fetchProduct(product.SelectedSubCategories.IDSubcategory, product.page , 5).then(data => {
+      fetchProduct(product.SelectedSubCategories.IDSubcategory, product.page , 4).then(data => {
         product.setProducts(data.rows)
         product.setTotalCount(data.count)
       })}
     else{
-      fetchProduct(undefined, product.page, 5).then(data => product.setProducts(data.rows))
+      fetchProduct(undefined, product.page, 4).then(data => product.setProducts(data.rows))
     }
   }, [product.SelectedSubCategories, product.page])
   return (

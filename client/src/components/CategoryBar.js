@@ -17,42 +17,44 @@ const CategoryBar = observer (() => {
     const {product} = useContext(Context)
     return (
       <div className={'drop-list_category'}>
-          <Container style={{width: '100%', display: 'flex'}}>
-              <div style={{width: '25%'}}>
-                  <ul
-                    className="for-ul"
-                  >
-                      <li onClick={() => product.setSelectedSubCategories()}><a className="text" href="#">
-                          <span >Все продукты</span>
-                      </a></li>
-                      {product.categories.map(category =>
-                        <li
-                          key={category.IDCategory}
-                          data-key={category.IDCategory}
-                          onMouseEnter={handleMouseEnter}
-                        ><a href="#">
-                            <span>{category.Name}</span>
-                        </a></li>
-                      )}
+          <div>
+              <Container style={{width: '100%', display: 'flex'}}>
+                  <div style={{width: '25%'}}>
+                      <ul
+                          className="for-ul"
+                      >
+                          <li onClick={() => product.setSelectedSubCategories()}><a className="text" href="#">
+                              <span >Все продукты</span>
+                          </a></li>
+                          {product.categories.map(category =>
+                              <li
+                                  key={category.IDCategory}
+                                  data-key={category.IDCategory}
+                                  onMouseEnter={handleMouseEnter}
+                              ><a href="#">
+                                  <span>{category.Name}</span>
+                              </a></li>
+                          )}
 
-                  </ul>
-              </div>
-              <div style={{width: '75%'}}>
-                  <div className={'category-list_left'}>
-                      <div>
-                          <h5>Заголовок списка</h5>
-                          <ul id={'Subcategory'}>
+                      </ul>
+                  </div>
+                  <div style={{width: '75%'}}>
+                      <div className={'category-list_left'}>
+                          <div>
+                              <h5>Заголовок списка</h5>
+                              <ul id={'Subcategory'}>
 
-                              {subcategories.map(subcategory =>
-                                <li onClick={() => product.setSelectedSubCategories(subcategory)} key={subcategory.IDCategory}><a className="text" href="#">
-                                    <span >{subcategory.Name}</span>
-                                </a></li>
-                              )}
-                          </ul>
+                                  {subcategories.map(subcategory =>
+                                      <li onClick={() => product.setSelectedSubCategories(subcategory)} key={subcategory.IDCategory}><a className="text" href="#">
+                                          <span >{subcategory.Name}</span>
+                                      </a></li>
+                                  )}
+                              </ul>
+                          </div>
                       </div>
                   </div>
-              </div>
-          </Container>
+              </Container>
+          </div>
       </div>
     )
 });

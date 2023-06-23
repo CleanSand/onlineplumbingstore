@@ -9,12 +9,17 @@
     color: #ffffff;
 }
 .page {
-    margin-top: 50px;
+    margin-top: 150px;
 }
 
 .navigation {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
 }
+
 .table-product {
     margin: 10px 0;
 }
@@ -46,14 +51,17 @@
 }
 .page-shop {
     width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-around;
 }
 .prod-list{
     margin: 0 20px 20px 20px;
     width: 100%;
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
 }
 .for-ul {
@@ -197,4 +205,31 @@
 
 .card_history:hover {
     background: rgba(0, 0, 0, .1);
+}
+
+.modal_order-wrapper {
+    position: absolute;
+    left: 0; top: 0;
+    z-index: 10;
+    background: rgba(0, 0, 0, .3);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal_order {
+    position: absolute;
+    background: #fff;
+    width: 600px;
+    border-radius: 10px;
+    padding: 20px 40px;
+}
+
+.product-name {
+    max-width: 200px; /* Установите нужную максимальную ширину */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

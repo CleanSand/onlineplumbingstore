@@ -36,7 +36,11 @@ class paymentController {
         include: [{
           model: models.ProductPayment,
           association: 'ProductPayments',
-          where: { IDUser }
+          where: { IDUser },
+          include:[{
+            model: models.Product,
+            association: 'IDProduct_Product'
+          }]
         }]
       });
       return res.json(payment)

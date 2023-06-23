@@ -60,7 +60,7 @@ export const NavBar = observer(() => {
       <Container>
         <Nav className={'d-flex align-items-center'}>
           <Link onClick={btnHome} className={'nav-link_home'} to={SHOP_ROUTE}>Магазин сантехники</Link>
-            <button onClick={btnCategory} className={'btn btn-primary mx-2'}>Категории</button>
+          <button onClick={btnCategory} className={'btn btn-primary mx-2'}>Категории</button>
         </Nav>
         {user.isAuth ?
           <Nav className="ml-auto">
