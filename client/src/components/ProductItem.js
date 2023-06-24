@@ -32,7 +32,7 @@ const ProductItem = ({product}) => {
   }
 
   return (
-        <div className="card m-3" style={{maxWidth: "300px"}}>
+        <div className="card m-3" style={{maxWidth: "400px"}}>
           <div className="row g-0">
             <div className="col-md-4">
               <img src={process.env.REACT_APP_API_URL + product.Image} className="img-fluid rounded-start" alt="..." />
@@ -40,8 +40,8 @@ const ProductItem = ({product}) => {
             <div className="col-md-8">
               <div className="card-body">
                 <h5 className="card-title product-name">{product.Name}</h5>
-                <p className="card-text">В наличии: {product.InStock}</p>
-                <p className="card-text">Цена: {product.Price}</p>
+                <p style={{padding: "0", margin: "0"}}  className="card-text">В наличии: {product.InStock}</p>
+                <p style={{padding: "0", margin: "0"}} className="card-text">Цена: {product.Price} ₽</p>
               </div>
             </div>
             {!isQuntity ? <Button variant={"outline-dark"} onClick={btnAddInBasket}>Добавить в корзину</Button>
