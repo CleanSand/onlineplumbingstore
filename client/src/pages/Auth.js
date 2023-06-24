@@ -70,18 +70,21 @@ const Auth = observer (() => {
                 placeholder="Введите фамилию"
                 value={LastName}
                 onChange={e => setLastName(e.target.value)}
+                type="text"
               />
               <Form.Control
                 className="mt-3"
                 placeholder="Введите имя"
                 value={FirstName}
                 onChange={e => setFirstName(e.target.value)}
+                type="text"
               />
               <Form.Control
                 className="mt-3"
                 placeholder="Введите отчество"
                 value={SecondName}
                 onChange={e => setSecondName(e.target.value)}
+                type="text"
               />
               <Form.Control
                 className="mt-3"
@@ -102,6 +105,7 @@ const Auth = observer (() => {
                 placeholder="Введите почту"
                 value={Email}
                 onChange={e => setEmail(e.target.value)}
+                type="email"
               />
               <Form.Control
                 className="mt-3"

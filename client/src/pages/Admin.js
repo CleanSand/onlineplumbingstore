@@ -10,9 +10,9 @@ import UpdateProduct from '../components/modals/UpdateProduct'
 const Admin = observer( () => {
   const {product} = useContext(Context)
 
-  useEffect(()=>{
-    fetchProduct().then(data => product.setProducts(data.rows))
-  }, [])
+  // useEffect(()=>{
+  //   fetchProduct().then(data => product.setProducts(data.rows))
+  // }, [])
 
   const btndelete = (e) =>{
     const key = e.target.dataset.key

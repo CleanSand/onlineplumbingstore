@@ -61,37 +61,61 @@ class ProductController {
 
   }
 
-  async getAll (req, res, next) {
+  async getAll(req, res, next) {
     try {
-      let {IDSubcategory, limit, page} = req.query
-      page = page || 1
-      limit = limit || 12
-      let offset = page * limit - limit
+      let { IDSubcategory, limit, page, orderby, order } = req.query;
+      console.log(IDSubcategory);
+      page = page || 1;
+      limit = limit || 12;
+      let offset = page * limit - limit;
       let products;
+
+      const sortingOptions = {
+        'price-low-to-high': ['Price', 'ASC'], // Сортировка по возрастанию цены
+        'price-high-to-low': ['Price', 'DESC'], // Сортировка по убыванию цены
+        'name-asc': ['Name', 'ASC'], // Сортировка по имени (возрастание)
+        'name-desc': ['Name', 'DESC'], // Сортировка по имени (убывание)
+        // Добавьте здесь другие варианты сортировки по необходимости
+      };
+
+      const sortOption = sortingOptions[orderby] || null; // Получение опции сортировки из запроса
+
       if (!IDSubcategory) {
-        products = await models.Product.findAndCountAll({ limit, offset })
+        products = await models.Product.findAll({
+          limit,
+          offset,
+          order: sortOption, // Применение сортировки
+        });
       }
-      if (IDSubcategory){
+
+      if (IDSubcategory) {
         products = await models.Product.findAndCountAll({
           limit,
           offset,
-          include:[{
-            model: models.ProductSubcategory,
-            association: 'ProductSubcategories',
-            where: {IDSubcategory: IDSubcategory},
-            include:[{
-              model: models.Subcategory,
-              association: 'IDSubcategory_Subcategory'
-            }]
-          }]
-        })
+          include: [
+            {
+              model: models.ProductSubcategory,
+              association: 'ProductSubcategories',
+              where: { IDSubcategory },
+              include: [
+                {
+                  model: models.Subcategory,
+                  association: 'IDSubcategory_Subcategory',
+                },
+              ],
+            },
+          ],
+          order: sortOption, // Применение сортировки
+        });
       }
-      return res.json(products)
-    } catch (e) {
-      next(ApiError.badRequest(e.message))
-    }
 
+      return res.json(products);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
   }
+
+
 
   async getOne (req, res, next) {
     try {
@@ -171,7 +195,7 @@ class ProductController {
         {
           where: { IDProduct }
         })
-      return res.json(updateProduct,updateProductSubcategory)
+      return res.json(updateProduct)
     } catch (e) {
       next(ApiError.badRequest(e.message))
     }

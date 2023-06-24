@@ -131,30 +131,35 @@ const UpdateProduct = observer(({ show, onHide }) => {
               onChange={e => setName(e.target.value)}
               className="form-control"
               placeholder="Введите название товара"
+              type="text"
             />
             <Form.Control
               value={Description}
               onChange={e => setDescription(e.target.value)}
               className="form-control"
               placeholder="Введите описание товара"
+              type="text"
             />
             <Form.Control
               value={Height}
               onChange={e => setHeight(e.target.value)}
               className="form-control"
               placeholder="Введите высоту"
+              type="text"
             />
             <Form.Control
               value={Weight}
               onChange={e => setWeight(e.target.value)}
               className="form-control"
               placeholder="Введите вес"
+              type="text"
             />
             <Form.Control
               value={Lenght}
               onChange={e => setLenght(e.target.value)}
               className="form-control"
               placeholder="Введите длину"
+              type="text"
             />
             <Form.Control
               value={Price}
@@ -168,42 +173,49 @@ const UpdateProduct = observer(({ show, onHide }) => {
               onChange={e => setProductType(e.target.value)}
               className="form-control"
               placeholder="Введите тип товара"
+              type="text"
             />
             <Form.Control
               value={TypeOfInstallation}
               onChange={e => setTypeOfInstallation(e.target.value)}
               className="form-control"
               placeholder="Введите тип инсталляции"
+              type="text"
             />
             <Form.Control
               value={Colour}
               onChange={e => setColour(e.target.value)}
               className="form-control"
               placeholder="Введите цвет"
+              type="text"
             />
             <Form.Control
               value={DesignStyle}
               onChange={e => setDesignStyle(e.target.value)}
               className="form-control"
               placeholder="Введите стиль дизайна"
+              type="text"
             />
             <Form.Control
               value={HousingMaterial}
               onChange={e => setHousingMaterial(e.target.value)}
               className="form-control"
               placeholder="Введите материал корпуса"
+              type="text"
             />
             <Form.Control
               value={VendorCode}
               onChange={e => setVendorCode(e.target.value)}
               className="form-control"
               placeholder="Введите артикул товара"
+              type="text"
             />
             <Form.Control
               value={InStock}
               onChange={e => setInStock(e.target.value)}
               className="form-control"
               placeholder="Введите количество товара в наличие товара"
+              type="number"
             />
             <Form.Control className="form-control" type="file" onChange={selectFile} />
             <hr />

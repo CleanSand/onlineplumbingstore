@@ -12,6 +12,8 @@ const CategoryBar = observer (() => {
         const key = e.target.dataset.key
         const res = await fetchSubcategory(key)
         setSubcategories(res)
+        console.log(res)
+        console.log(key)
     }
 
     const {product} = useContext(Context)

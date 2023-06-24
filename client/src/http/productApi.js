@@ -22,19 +22,19 @@ export const createSubcategory = async (subcategory) => {
   const {data} =  await $authHost.post('api/subcategory', subcategory)
   return data
 }
-export const fetchSubcategory = async (id) => {
-  const {data} =  await $host.get('api/subcategory', {params: id})
-  return data
-}
+export const fetchSubcategory = async (IDCategory) => {
+  const { data } = await $host.get('api/subcategory', { params: { IDCategory } });
+  return data;
+};
 export const createProduct = async (Product) => {
   const {data} =  await $authHost.post('api/product', Product)
   return data
 }
-export const fetchProduct = async (IDSubCategory, page, limit = 5) => {
+export const fetchProduct = async (IDSubcategory, page, limit) => {
   const {data} =  await $host.get( 'api/product', {params:{
-      IDSubCategory,limit, page
-    }})
-  return data
+      IDSubcategory,limit, page
+    }});
+  return data;
 }
 export const fetchOneProduct = async (IDProduct) => {
   return await $host.get('api/product/' + IDProduct)
@@ -52,16 +52,16 @@ export  const addToBasket = async (Product) =>{
   return data
 }
 export const getAllProductBasket = async (IDUser) => {
-  const {data} =  await $host.get( 'api/basket/get-all/', {params: {IDUser}} )
-  return data
+  const {data} =  await $host.get( 'api/basket/get-all/', {params: {IDUser}} );
+  return data;
 }
 export const getOneProductBasket = async (IDUser, IDProduct) => {
-  const {data} =  await $host.get( 'api/basket/get-one/', {params: {IDUser, IDProduct}} )
-  return data
+  const {data} =  await $host.get( 'api/basket/get-one/', {params: {IDUser, IDProduct}} );
+  return data;
 }
 export const deleteFromBasket = async (Product) => {
-  const {data} =  await $host.delete( 'api/basket/delete', { data: Product })
-  return data
+  const {data} =  await $host.delete( 'api/basket/delete', { data: { Product } });
+  return data;
 }
 export const plusQuantityBasket = async (Basket) => {
   const {data} =  await $host.patch( 'api/basket/plus-quantity', Basket)

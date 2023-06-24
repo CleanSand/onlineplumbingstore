@@ -57,24 +57,28 @@ const UpdateUser = observer(({ show, onHide }) => {
           onChange={e => setLastName(e.target.value)}
           className="form-control"
           placeholder="Введите фамилию"
+          type="text"
         />
         <Form.Control
           value={FirstName}
           onChange={e => setFirstName(e.target.value)}
           className="form-control"
           placeholder="Введите имя"
+          type="text"
         />
         <Form.Control
           value={SecondName}
           onChange={e => setSecondName(e.target.value)}
           className="form-control"
           placeholder="Введите отчество"
+          type="text"
         />
         <Form.Control
           value={Email}
           onChange={e => setEmail(e.target.value)}
           className="form-control"
           placeholder="Введите почту"
+          type="email"
         />
         <Form.Control
           value={PhoneNumber}
