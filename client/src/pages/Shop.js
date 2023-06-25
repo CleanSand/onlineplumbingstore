@@ -40,11 +40,8 @@ const Shop = observer(() => {
         </Form.Control>
         <ProductList />
         <Pages />
-        <button
-          onClick={() => navigate(CONTACT_FORM)}
-          style={{ position: 'absolute', bottom: '20px', right: '20px' }}
-        >
-          Моя кнопка
+        <button className={'btn btn-secondary'} onClick={() => navigate(CONTACT_FORM)} style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
+          Поддержка
         </button>
       </Container>
     </section>
