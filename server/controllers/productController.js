@@ -61,35 +61,60 @@ class ProductController {
 
   }
 
-  async getAll (req, res, next) {
+  async getAll(req, res, next) {
     try {
-      let {IDSubcategory, limit, page} = req.query
-      page = page || 1
-      limit = limit || 12
-      let offset = page * limit - limit
+      let { IDSubcategory, limit, page, sortType } = req.query;
+      page = page || 1;
+      limit = limit || 12;
+      let offset = page * limit - limit;
       let products;
-      if (!IDSubcategory) {
-        products = await models.Product.findAndCountAll({ limit, offset })
-      }
-      if (IDSubcategory){
-        products = await models.Product.findAndCountAll({
-          include:[{
-            model: models.ProductSubcategory,
-            association: 'ProductSubcategories',
-            where: {IDSubcategory: IDSubcategory},
-            include:[{
-              model: models.Subcategory,
-              association: 'IDSubcategory_Subcategory'
-            }]
-          }]
-        })
-      }
-      return res.json(products)
-    } catch (e) {
-      next(ApiError.badRequest(e.message))
-    }
+      let orderField, orderDirection;
 
+      if (sortType === 'price-low-to-high') {
+        orderField = 'Price';
+        orderDirection = 'ASC';
+      } else if (sortType === 'price-high-to-low') {
+        orderField = 'Price';
+        orderDirection = 'DESC';
+      } else {
+        orderField = sortType === 'default' ? '' : '';
+        orderDirection = '';
+      }
+
+      if (!IDSubcategory) {
+        products = await models.Product.findAndCountAll({
+          order: orderField ? [[orderField, orderDirection]] : [],
+          limit,
+          offset,
+        });
+      } else {
+        products = await models.Product.findAndCountAll({
+          include: [
+            {
+              model: models.ProductSubcategory,
+              association: 'ProductSubcategories',
+              where: { IDSubcategory },
+              include: [
+                {
+                  model: models.Subcategory,
+                  association: 'IDSubcategory_Subcategory',
+                },
+              ],
+            },
+          ],
+          order: orderField ? [[orderField, orderDirection]] : [],
+          limit,
+          offset,
+        });
+      }
+
+      return res.json(products);
+    } catch (e) {
+      next(ApiError.badRequest(e.message));
+    }
   }
+
+
 
   async getOne (req, res, next) {
     try {

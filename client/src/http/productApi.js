@@ -30,9 +30,9 @@ export const createProduct = async (Product) => {
   const {data} =  await $authHost.post('api/product', Product)
   return data
 }
-export const fetchProduct = async (IDSubcategory, page, limit) => {
+export const fetchProduct = async (IDSubcategory, page, limit, sortType) => {
   const {data} =  await $host.get( 'api/product', {params:{
-      IDSubcategory,limit, page
+      IDSubcategory,limit, page, sortType
     }});
   return data;
 }
