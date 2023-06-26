@@ -105,11 +105,11 @@ class BasketController {
   }
   async DeleteFromBasket(req, res, next){
     try {
-      const  {IDUser, IDProduct} = req.body
+      const  {IDUser, IDProduct} = req.query
       const del = await ProductPayment.destroy({
         where: {IDProduct, IDUser, IDPayment: null}
       })
-      return res.json(del || "Такого продукта в корзине нет")
+      return res.json(del)
     }
     catch (e) {
       next(ApiError.badRequest(e.message))

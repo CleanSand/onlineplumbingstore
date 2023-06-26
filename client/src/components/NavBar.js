@@ -1,29 +1,30 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Context } from '../index'
-import { Button, Container, Dropdown, Nav, Navbar } from 'react-bootstrap'
+import { Button, Container, Dropdown, Form, Nav, Navbar } from 'react-bootstrap'
 import { ADMIN_ROUTE, BASKET_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE, PURCHASE_HISTORY_ROUTE } from '../utils/const'
 import { observer } from 'mobx-react-lite'
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import CategoryBar from "./CategoryBar";
-import {useNavigate} from 'react-router-dom'
-import { fetchCategory, fetchSubcategory, getAllHistory, getAllProductBasket } from '../http/productApi'
-import data from 'bootstrap/js/src/dom/data'
-
-
+import { useNavigate } from 'react-router-dom'
+import { fetchCategory, fetchProduct, fetchSubcategory, getAllProductBasket } from '../http/productApi'
 
 export const NavBar = observer(() => {
   const { user, product } = useContext(Context)
   const navigate = useNavigate()
-  const logOut = () =>{
+  const [searchBar, setSearchBar] = useState('')
+
+  const logOut = () => {
     user.onLogout()
   }
-  async function getBasket () {
+
+  async function getBasket() {
     product.CleanBasket()
-    if (product.basket.length == 0 || product.basket.length == null) {
+    if (product.basket.length === 0 || product.basket.length === null) {
       await getAllProductBasket(user.user.IDUser).then(data => product.setBasket(data))
       console.log(product.basket)
     }
   }
+
   const btnCategory = () => {
     const dropMenuCategory = document.querySelector('.drop-list_category')
 
@@ -32,35 +33,58 @@ export const NavBar = observer(() => {
     else
       dropMenuCategory.classList.add('active')
   }
-  useEffect(() =>{
+
+  useEffect(() => {
     getBasket()
     fetchCategory().then(data => product.setCategories(data))
     fetchSubcategory().then(data => product.setSubCategories(data))
     getAllProductBasket(user.user.IDUser).then(data => product.setBasket(data))
-    console.log(product.basket)
+
   }, [])
+
   const btn = () => {
     navigate(ADMIN_ROUTE)
     product.Clean()
   }
+
   const btnBasket = () => {
     navigate(BASKET_ROUTE)
     getBasket()
   }
+
   const btnHistory = async () => {
     navigate(PURCHASE_HISTORY_ROUTE)
   }
+
   const btnHome = () => {
     product.page = 1
     product.Clean()
   }
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    fetchProduct(undefined, product.page, 9, undefined, searchBar).then(data => product.setProducts(data.rows))
+    console.log(product.products)
+  }
+
   return (
     <Navbar className={'navigation py-3'} bg="dark" variant="dark" >
-        <CategoryBar/>
+      <CategoryBar />
       <Container>
         <Nav className={'d-flex align-items-center'}>
           <Link onClick={btnHome} className={'nav-link_home'} to={SHOP_ROUTE}>Магазин сантехники</Link>
           <button onClick={btnCategory} className={'btn btn-primary mx-2'}>Категории</button>
+        </Nav>
+        <Nav>
+          <Form onSubmit={handleSearch} controlId="formEmail" className={'d-flex'} style={{ width: "500px" }}>
+            <Form.Control
+              type="text"
+              placeholder="Поиск"
+              required
+              value={searchBar}
+              onChange={e => setSearchBar(e.target.value)}
+            />
+          </Form>
         </Nav>
         {user.isAuth ?
           <Nav className="ml-auto">
@@ -77,11 +101,9 @@ export const NavBar = observer(() => {
           </Nav>
           :
           <Nav className="ml-auto">
-
             <Button variant={"outline-light"} onClick={() => navigate(LOGIN_ROUTE)}>Авторизация</Button>
           </Nav>
         }
-
       </Container>
     </Navbar>
   )

@@ -63,12 +63,13 @@ class ProductController {
 
   async getAll(req, res, next) {
     try {
-      let { IDSubcategory, limit, page, sortType } = req.query;
+      let { IDSubcategory, limit, page, sortType, searchBar } = req.query;
       page = page || 1;
       limit = limit || 12;
       let offset = page * limit - limit;
       let products;
       let orderField, orderDirection;
+      const { Op } = require('sequelize');
 
       if (sortType === 'price-low-to-high') {
         orderField = 'Price';
@@ -108,11 +109,26 @@ class ProductController {
         });
       }
 
+      if (searchBar) {
+        const searchProducts = await models.Product.findAndCountAll({
+          where: {
+            Name: {
+              [Op.like]: `%${searchBar}%`,
+            },
+          },
+          order: orderField ? [[orderField, orderDirection]] : [],
+          limit,
+          offset,
+        });
+        return res.json(searchProducts);
+      }
+
       return res.json(products);
     } catch (e) {
       next(ApiError.badRequest(e.message));
     }
   }
+
 
 
 
@@ -131,7 +147,7 @@ class ProductController {
   }
   async delete(req, res, next){
     try {
-      const { IDProduct } = req.params
+      const { IDProduct } = req.query
       const deleteProductSubcategory = await ProductSubcategory.destroy({
         where: {IDProduct}
       })
@@ -139,7 +155,6 @@ class ProductController {
         where: {IDProduct}
       })
 
-      return res.json(deleteProductSubcategory, deleteProduct)
     } catch (e) {
       next(ApiError.badRequest(e.message))
     }

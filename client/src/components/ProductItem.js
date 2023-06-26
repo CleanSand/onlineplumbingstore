@@ -1,12 +1,9 @@
 import React, {useContext, useEffect, useState} from 'react'
-import { Button, Card, Col, Image } from 'react-bootstrap'
-import { useNavigate} from "react-router-dom"
-import { PRODUCT_ROUTE } from '../utils/const'
-import { addToBasket, createProduct, deleteFromBasket, getOneProductBasket } from '../http/productApi'
+import { Button } from 'react-bootstrap'
+import { addToBasket, deleteFromBasket, getOneProductBasket } from '../http/productApi'
 import { Context } from '../index'
 
 const ProductItem = ({product}) => {
-  const navigate = useNavigate()
   const {user} = useContext(Context)
   const [isQuntity, setisQuntity] = useState(false)
 
@@ -16,6 +13,7 @@ const ProductItem = ({product}) => {
 
   async function btnAddInBasket() {
     const formData = new FormData();
+
     formData.append('IDProduct', product.IDProduct);
     formData.append('IDUser', user.user.IDUser);
 
@@ -23,11 +21,8 @@ const ProductItem = ({product}) => {
     setisQuntity(true);
   }
   async function btnDeleteFromBasket() {
-    const formDataDel = new FormData();
-    formDataDel.append('IDUser', user.user.IDUser);
-    formDataDel.append('IDProduct', product.IDProduct);
 
-    await deleteFromBasket(formDataDel);
+    await deleteFromBasket(product.IDProduct, user.user.IDUser);
     setisQuntity(false);
   }
 
@@ -35,7 +30,7 @@ const ProductItem = ({product}) => {
         <div className="card m-3" style={{maxWidth: "400px"}}>
           <div className="row g-0">
             <div className="col-md-4">
-              <img src={process.env.REACT_APP_API_URL + product.Image} className="img-fluid rounded-start" alt="..." />
+              <img src={process.env.REACT_APP_API_URL + product.Image} style={{maxWidth: "100px", height: "auto"}} className="rounded-start" alt="..." />
             </div>
             <div className="col-md-8">
               <div className="card-body">

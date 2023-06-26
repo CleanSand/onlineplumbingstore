@@ -1,6 +1,4 @@
 import { $authHost, $host } from './index'
-import jwtDecode from 'jwt-decode'
-import basket from '../pages/Basket'
 
 export const createCategory = async (category) => {
   const {data} =  await $authHost.post('api/category', category)
@@ -30,9 +28,9 @@ export const createProduct = async (Product) => {
   const {data} =  await $authHost.post('api/product', Product)
   return data
 }
-export const fetchProduct = async (IDSubcategory, page, limit, sortType) => {
+export const fetchProduct = async (IDSubcategory, page, limit, sortType, searchBar) => {
   const {data} =  await $host.get( 'api/product', {params:{
-      IDSubcategory,limit, page, sortType
+      IDSubcategory,limit, page, sortType, searchBar
     }});
   return data;
 }
@@ -59,8 +57,9 @@ export const getOneProductBasket = async (IDUser, IDProduct) => {
   const {data} =  await $host.get( 'api/basket/get-one/', {params: {IDUser, IDProduct}} );
   return data;
 }
-export const deleteFromBasket = async (Product) => {
-  const {data} =  await $host.delete( 'api/basket/delete', { data: { Product } });
+export const deleteFromBasket = async (IDProduct, IDUser) => {
+  const {data} =  await $host.delete( 'api/basket/delete', {params:
+  {IDProduct, IDUser} });
   return data;
 }
 export const plusQuantityBasket = async (Basket) => {

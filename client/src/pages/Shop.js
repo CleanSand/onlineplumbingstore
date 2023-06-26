@@ -17,12 +17,12 @@ const Shop = observer(() => {
 
   useEffect(() => {
     if (product.SelectedSubCategories) {
-      fetchProduct(product.SelectedSubCategories.IDSubcategory, product.page, 9, sortType).then((data) => {
+      fetchProduct(product.SelectedSubCategories.IDSubcategory, product.page, 9, sortType, undefined).then((data) => {
         product.setProducts(data.rows)
         product.setTotalCount(data.count)
       })
     } else {
-      fetchProduct(undefined, product.page, 9, sortType).then((data) => product.setProducts(data.rows))
+      fetchProduct(undefined, product.page, 9, sortType, undefined).then((data) => product.setProducts(data.rows))
     }
   }, [product.SelectedSubCategories, product.page, sortType])
 
@@ -33,7 +33,7 @@ const Shop = observer(() => {
   return (
     <section>
       <Container className={'page-shop'}>
-        <Form.Control as="select" value={sortType} onChange={handleSortChange}>
+        <Form.Control as="select" value={sortType} onChange={handleSortChange} style={{width: "300px"}} >
           <option value="default">По умолчанию</option>
           <option value="price-low-to-high">Сначала дешёвые</option>
           <option value="price-high-to-low">Сначала дорогие</option>
