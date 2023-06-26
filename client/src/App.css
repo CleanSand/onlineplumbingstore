@@ -61,7 +61,7 @@
     margin: 0 20px 20px 20px;
     width: 100%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-wrap: wrap;
 }
 .for-ul {
@@ -134,7 +134,7 @@
 }
 
 .image-product_box {
-    border: 1px #ccc solid;
+    overflow: hidden;
 }
 
 .image-product {
@@ -172,7 +172,6 @@
     display: flex;
     align-items: center;
     justify-content: space-around;
-    border: 1px solid #ccc;
 }
 
 .prod-description {

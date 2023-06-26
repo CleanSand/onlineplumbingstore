@@ -2,10 +2,13 @@ import React, {useContext, useEffect, useState} from 'react'
 import { Button } from 'react-bootstrap'
 import { addToBasket, deleteFromBasket, getOneProductBasket } from '../http/productApi'
 import { Context } from '../index'
+import {useNavigate} from "react-router-dom";
+import {CONTACT_FORM, PRODUCT_ROUTE} from "../utils/const";
 
 const ProductItem = ({product}) => {
   const {user} = useContext(Context)
   const [isQuntity, setisQuntity] = useState(false)
+  const navigate = useNavigate()
 
   useEffect(() => {
     getOneProductBasket(user.user.IDUser, product.IDProduct).then(data => data ? setisQuntity(true) : setisQuntity(false))
@@ -27,10 +30,10 @@ const ProductItem = ({product}) => {
   }
 
   return (
-        <div className="card m-3" style={{maxWidth: "400px"}}>
+        <div  onClick={() => navigate(PRODUCT_ROUTE + '/' + product.IDProduct)} className="card my-3" style={{width: "400px"}}>
           <div className="row g-0">
             <div className="col-md-4">
-              <img src={process.env.REACT_APP_API_URL + product.Image} style={{maxWidth: "100px", height: "auto"}} className="rounded-start" alt="..." />
+              <img src={process.env.REACT_APP_API_URL + product.Image} style={{maxWidth: "100%", height: "auto", maxHeight: "120px", padding: "5px", borderRadius: '20px'}} className="rounded-start" alt="..." />
             </div>
             <div className="col-md-8">
               <div className="card-body">

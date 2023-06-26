@@ -33,13 +33,17 @@ const Shop = observer(() => {
   return (
     <section>
       <Container className={'page-shop'}>
-        <Form.Control as="select" value={sortType} onChange={handleSortChange} style={{width: "300px"}} >
-          <option value="default">По умолчанию</option>
-          <option value="price-low-to-high">Сначала дешёвые</option>
-          <option value="price-high-to-low">Сначала дорогие</option>
-        </Form.Control>
+        <div className={'d-flex w-100 justify-content-end'}>
+          <Form.Control as="select" value={sortType} onChange={handleSortChange} style={{width: "300px"}} >
+            <option value="default">По умолчанию</option>
+            <option value="price-low-to-high">Сначала дешёвые</option>
+            <option value="price-high-to-low">Сначала дорогие</option>
+          </Form.Control>
+        </div>
         <ProductList />
-        <Pages />
+        <div style={{ position: 'absolute', bottom: '15px' }}>
+          <Pages />
+        </div>
         <button className={'btn btn-secondary'} onClick={() => navigate(CONTACT_FORM)} style={{ position: 'absolute', bottom: '20px', right: '20px' }}>
           Поддержка
         </button>

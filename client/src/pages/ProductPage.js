@@ -17,15 +17,14 @@ const ProductPage = observer(() => {
         <Container>
           <div className={"d-flex product-card"}>
             <div className={'product-img'}>
-              <div className={'image-product_box'}>
-                <Image src={process.env.REACT_APP_API_URL + products.Image} className={'image-product'}/>
+              <div className={'image-product_box h-100 d-flex align-items-center justify-content-center'}>
+                <Image src={process.env.REACT_APP_API_URL + products.Image} className={'image-product p-4'}/>
               </div>
               <div className={'product-price'}>
                 <div>
                   <h3>От {products.Price} Руб.</h3>
-                  <h3>В наличии: {products.InStock}</h3>
+                  <h4>В наличии: {products.InStock}</h4>
                 </div>
-
                 <button className={'btn btn-dark'}>Добавить в корзину</button>
               </div>
             </div>

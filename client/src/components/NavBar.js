@@ -57,7 +57,7 @@ export const NavBar = observer(() => {
   }
 
   const btnHome = () => {
-    product.page = 1
+    product.setPage(1)
     product.Clean()
   }
 
@@ -71,7 +71,7 @@ export const NavBar = observer(() => {
     <Navbar className={'navigation py-3'} bg="dark" variant="dark" >
       <CategoryBar />
       <Container>
-        <Nav className={'d-flex align-items-center'}>
+        <Nav style={{width: "270px"}} className={'d-flex align-items-center'}>
           <Link onClick={btnHome} className={'nav-link_home'} to={SHOP_ROUTE}>Магазин сантехники</Link>
           <button onClick={btnCategory} className={'btn btn-primary mx-2'}>Категории</button>
         </Nav>
@@ -87,7 +87,7 @@ export const NavBar = observer(() => {
           </Form>
         </Nav>
         {user.isAuth ?
-          <Nav className="ml-auto">
+          <Nav style={{width: "270px"}} className="ml-auto">
             {user.user.IDRole === 1 && <Button variant={"outline-light"} className="mx-2" onClick={btn}>Админ панель</Button>}
             <Dropdown>
               <Dropdown.Toggle>Настройки</Dropdown.Toggle>
@@ -100,7 +100,7 @@ export const NavBar = observer(() => {
             </Dropdown>
           </Nav>
           :
-          <Nav className="ml-auto">
+          <Nav style={{width: "270px"}} className="ml-auto">
             <Button variant={"outline-light"} onClick={() => navigate(LOGIN_ROUTE)}>Авторизация</Button>
           </Nav>
         }
