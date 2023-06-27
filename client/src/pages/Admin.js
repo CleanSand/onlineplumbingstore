@@ -1,18 +1,17 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Container, Dropdown, Row } from 'react-bootstrap'
+import { Button, Container } from 'react-bootstrap'
 import CreateProduct from '../components/modals/CreateProduct'
-import ProductItem from '../components/ProductItem'
 import { Context } from '../index'
-import { deleteProduct, fetchCategory, fetchOneProduct, fetchProduct, fetchSubcategory } from '../http/productApi'
+import { deleteProduct, fetchOneProduct, fetchProduct } from '../http/productApi'
 import { observer } from 'mobx-react-lite'
 import UpdateProduct from '../components/modals/UpdateProduct'
 
 const Admin = observer( () => {
   const {product} = useContext(Context)
 
-  // useEffect(()=>{
-  //   fetchProduct().then(data => product.setProducts(data.rows))
-  // }, [])
+  useEffect(() => {
+    fetchProduct(undefined, undefined, undefined, undefined, undefined).then((data) => product.setProducts(data.rows))
+  }, [])
 
   const btndelete = (e) =>{
     const key = e.target.dataset.key
@@ -24,6 +23,7 @@ const Admin = observer( () => {
     const res  =  await fetchOneProduct(key)
     product.setSelectedProduct(res.data)
     setUpdateProductVisible(true)
+    product.setSelectedManufacturers(product.SelectedProduct.IDManufacturer_Manufacturer);
   }
 
   const [CreateProductVisible,setCreateProductVisible] = useState(false)

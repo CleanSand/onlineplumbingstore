@@ -1,16 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Col, Container, Form } from 'react-bootstrap'
+import {  Container, Form } from 'react-bootstrap'
 import ProductList from '../components/ProductList'
 import { observer } from 'mobx-react-lite'
 import { Context } from '../index'
-import { fetchProduct, getAllProductBasket } from '../http/productApi'
+import { fetchProduct } from '../http/productApi'
 import Pages from '../components/Pages'
 import { useNavigate } from 'react-router-dom'
-import SupportForm from './SupportForm'
 import { CONTACT_FORM } from '../utils/const'
 
 const Shop = observer(() => {
-  const { product, user } = useContext(Context)
+  const { product } = useContext(Context)
   const navigate = useNavigate()
   const [sortType, setSortType] = useState('default')
   console.log(product.products)

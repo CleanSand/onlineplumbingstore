@@ -102,6 +102,10 @@ class ProductController {
                 },
               ],
             },
+            {
+              model: models.Manufacturer,
+              association: 'IDManufacturer_Manufacturer'
+            }
           ],
           order: orderField ? [[orderField, orderDirection]] : [],
           limit,
@@ -135,8 +139,24 @@ class ProductController {
   async getOne (req, res, next) {
     try {
       const { IDProduct } = req.params
-      const product = await Product.findOne({
-        where: { IDProduct }
+      const product = await models.Product.findOne({
+        where: { IDProduct },
+        include: [
+          {
+            model: models.ProductSubcategory,
+            association: 'ProductSubcategories',
+            include: [
+              {
+                model: models.Subcategory,
+                association: 'IDSubcategory_Subcategory',
+              },
+            ],
+          },
+          {
+            model: models.Manufacturer,
+            association: 'IDManufacturer_Manufacturer'
+          }
+        ],
       })
 
       return res.json(product)

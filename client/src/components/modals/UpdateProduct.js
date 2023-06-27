@@ -20,7 +20,6 @@ const UpdateProduct = observer(({ show, onHide }) => {
   const [HousingMaterial, setHousingMaterial] = useState('');
   const [VendorCode, setVendorCode] = useState('');
   const [InStock, setInStock] = useState('');
-  const [IDManufacturer, setIDManufacturer] = useState('');
   const [File, setFile] = useState(null);
 
   const selectFile = e => {
@@ -43,6 +42,7 @@ const UpdateProduct = observer(({ show, onHide }) => {
       setHousingMaterial(product.SelectedProduct.HousingMaterial);
       setVendorCode(product.SelectedProduct.VendorCode);
       setInStock(product.SelectedProduct.InStock);
+
     }
   }, [product.SelectedProduct]);
 
@@ -71,9 +71,9 @@ const UpdateProduct = observer(({ show, onHide }) => {
       onHide();
     });
   };
-
+console.log()
   return (
-      <Modal show={show} onHide={onHide} centered>
+      <Modal show={show} onHide={onHide} centered style={{ zIndex: 9999 }}>
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
             Изменить товар
@@ -98,7 +98,7 @@ const UpdateProduct = observer(({ show, onHide }) => {
             </Dropdown>
             <Dropdown className="dropdown-modal">
               <Dropdown.Toggle>
-                {product.SelectedSubCategories?.Name || 'Выберите подкатегорию'}
+                {product.SelectedProduct.ProductSubcategories?.[0]?.IDSubcategory_Subcategory?.Name || 'Выберите подкатегорию'}
               </Dropdown.Toggle>
               <Dropdown.Menu>
                 {product.subcategories.map(subcategory => (

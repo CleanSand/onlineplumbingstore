@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Button, Dropdown, Form, Image, Modal } from 'react-bootstrap';
+import { Button, Dropdown, Form, Modal } from 'react-bootstrap';
 import { Context } from '../../index';
-import { createProduct, fetchCategory, fetchManufacturer, fetchProduct, fetchSubcategory } from '../../http/productApi';
+import { createProduct, fetchCategory, fetchManufacturer, fetchSubcategory } from '../../http/productApi';
 import { observer } from 'mobx-react-lite';
 
 const CreateProduct = observer(({ show, onHide }) => {
@@ -60,7 +60,7 @@ const CreateProduct = observer(({ show, onHide }) => {
     createProduct(formData).then(data => onHide());
   };
   return (
-    <Modal show={show} onHide={onHide} centered>
+    <Modal show={show} onHide={onHide} centered style={{ zIndex: 9999 }}>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Добавить товар

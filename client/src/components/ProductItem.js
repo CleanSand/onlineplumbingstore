@@ -3,7 +3,7 @@ import { Button } from 'react-bootstrap'
 import { addToBasket, deleteFromBasket, getOneProductBasket } from '../http/productApi'
 import { Context } from '../index'
 import {useNavigate} from "react-router-dom";
-import {CONTACT_FORM, PRODUCT_ROUTE} from "../utils/const";
+import { PRODUCT_ROUTE} from "../utils/const";
 
 const ProductItem = ({product}) => {
   const {user} = useContext(Context)
@@ -30,8 +30,8 @@ const ProductItem = ({product}) => {
   }
 
   return (
-        <div  onClick={() => navigate(PRODUCT_ROUTE + '/' + product.IDProduct)} className="card my-3" style={{width: "400px"}}>
-          <div className="row g-0">
+        <div  className="card my-3" style={{width: "400px"}}>
+          <div className="row g-0" onClick={() => navigate(PRODUCT_ROUTE + '/' + product.IDProduct)} style={{cursor: "pointer"}}>
             <div className="col-md-4">
               <img src={process.env.REACT_APP_API_URL + product.Image} style={{maxWidth: "100%", height: "auto", maxHeight: "120px", padding: "5px", borderRadius: '20px'}} className="rounded-start" alt="..." />
             </div>
@@ -42,11 +42,11 @@ const ProductItem = ({product}) => {
                 <p style={{padding: "0", margin: "0"}} className="card-text">Цена: {product.Price} ₽</p>
               </div>
             </div>
-            {!isQuntity ? <Button variant={"outline-dark"} onClick={btnAddInBasket}>Добавить в корзину</Button>
-                :
-                <Button variant={"outline-dark"} onClick={btnDeleteFromBasket}>Удалить из корзины</Button>
-            }
           </div>
+          {!isQuntity ? <Button variant={"outline-dark"} onClick={btnAddInBasket}>Добавить в корзину</Button>
+            :
+            <Button variant={"outline-dark"} onClick={btnDeleteFromBasket}>Удалить из корзины</Button>
+          }
         </div>
   )
 }

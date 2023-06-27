@@ -1,13 +1,10 @@
-import React, { useContext, useEffect } from 'react';
-import { Card, Container, Image } from 'react-bootstrap';
-import ProductItem from '../components/ProductItem';
+import React, { useContext } from 'react';
+import { Container, Image } from 'react-bootstrap';
 import { Context } from '../index';
 import { observer } from 'mobx-react-lite';
 import {
   createPayment,
   deleteFromBasket,
-  deleteProduct,
-  getAllProductBasket,
   minusQuantityBasket,
   plusQuantityBasket,
 } from '../http/productApi';
@@ -115,8 +112,8 @@ const Basket = observer(() => {
                             alt="Card image cap"
                         />
                         <div className="d-flex flex-column justify-content-between card-body">
-                          <h5 className="card-title">{basket.IDProduct_Product.Name}</h5>
-                          <p className={'price'}>{basket.IDProduct_Product.Price}</p>
+                          <h5 className="card-title product-name">{basket.IDProduct_Product.Name}</h5>
+                          <p className={'price'}>{basket.IDProduct_Product.Price} ₽</p>
                           <div className="btn-group" role="group" aria-label="Basic example">
                             <button onClick={e => minus(e, basket.IDProduct)} type="button" className="btn btn-secondary">
                               -
@@ -149,7 +146,7 @@ const Basket = observer(() => {
                       Стоимость: {totalCost} ₽
                     </h5>
                     <p id={'totalQuantity'} className="card-text">
-                      Количество {totalQuantity}
+                      Количество: {totalQuantity}
                     </p>
                     <button onClick={payment} style={{ width: '100%' }} className="btn btn-secondary">
                       Перейти к оплате

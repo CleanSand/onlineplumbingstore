@@ -2,10 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import { observer } from 'mobx-react-lite'
 import { Context } from '../../index'
-import { updateProduct } from '../../http/productApi'
 import { updateUser } from '../../http/userApi'
-import { useNavigate } from 'react-router-dom'
-import { PROFILE_ROUTE } from '../../utils/const'
 import jwtDecode from 'jwt-decode'
 
 const UpdateUser = observer(({ show, onHide }) => {
@@ -45,7 +42,7 @@ const UpdateUser = observer(({ show, onHide }) => {
     });
   };
   return (
-    <Modal show={show} onHide={onHide} centered>
+    <Modal show={show} onHide={onHide} centered style={{ zIndex: 9999 }}>
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
           Редактировать профиль

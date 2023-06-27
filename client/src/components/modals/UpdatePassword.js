@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
-import { observe } from 'mobx'
 import { observer } from 'mobx-react-lite'
 import { ChangePassword } from '../../http/userApi'
 import { Context } from '../../index'
@@ -28,7 +27,7 @@ const UpdatePassword = observer( ({show, onHide}) => {
   }
 
   return (
-    <Modal show={show} onHide={onHide} centered>
+    <Modal show={show} onHide={onHide} centered style={{ zIndex: 9999 }}>
       <Modal.Header>
         <Modal.Title id="contained-modal-title-vcenter">
           Сменить пароль
