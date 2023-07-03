@@ -76,7 +76,7 @@ export const NavBar = observer(() => {
           <Link onClick={btnHome} className={'nav-link_home'} to={SHOP_ROUTE}>Магазин сантехники</Link>
           <button onClick={btnCategory} className={'btn btn-primary mx-2'}>Категории</button>
         </Nav>
-        {user.isAuth && location.pathname === SHOP_ROUTE && (
+        {location.pathname === SHOP_ROUTE && (
           <Nav>
             <Form onSubmit={handleSearch} controlId="formEmail" className={'d-flex'} style={{ width: "500px" }}>
               <Form.Control
